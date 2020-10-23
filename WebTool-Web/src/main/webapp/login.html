@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Web Tool</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/util.css">
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <script type="text/javascript" src="./plugins/angularjs/angular.min.js"></script>
+
+</head>
+
+<body>
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-form-title">
+                <span class="login100-form-title-1">Web&nbsp;Tool</span>
+            </div>
+
+            <form class="login100-form validate-form" action="login"
+                  method="post">
+                <div class="wrap-input100 validate-input m-b-26"
+                     data-validate="用户名不能为空">
+                    <span class="label-input100">User Name</span> <input
+                        class="input100 has-val" id="UserName" type="text"
+                        name="username" placeholder="Please Enter Your Name"> <span
+                        class="focus-input100"></span>
+                </div>
+                <div class="wrap-input100 validate-input m-b-18"
+                     data-validate="密码不能为空">
+                    <span class="label-input100">Password</span> <input id="prependedInput"
+                                                                        class="input100" type="password" name="password"
+                                                                        placeholder="Please Enter Your password"> <span
+                        class="focus-input100"></span>
+                </div>
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn"
+                            onclick="document:loginform.submit()">Login
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
