@@ -38,30 +38,65 @@
     </script>
     <script type="text/javascript"
             src="../js/controller/searchController.js">
-
     </script>
 </head>
 <body class="hold-transition skin-red sidebar-mini" ng-app="pyg"
       ng-controller="searchController">
-<!-- .box-body -->
-<div class="box box-primary">
-    <div class="box-body">
-        <div class="table-box">
-            <div class="box-tools pull-left">
-                <div class="has-feedback">
-                    <br/>
-                    <input ng-model="searchEntity.wxId" class="form-control" type="text" placeholder="企业微信ID"
-                           style="width: 400px">
-                    <br/>
-                    <button class="btn btn-default"
-                            ng-click="ChinalifeGetQRCode(searchEntity.wxId)">查询动态验证码
-                    </button>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="box box-primary">
+                <div class="box-body box-profile">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">1.登录验证码获取</h3>
+                    </div>
+
+                    <div class="box-body">
+                        <div class="table-box">
+                            <div class="box-tools pull-left">
+                                <div class="has-feedback">
+                                    <br/>
+                                    <input ng-model="searchEntity.wxId" class="form-control" type="text"
+                                           placeholder="企业微信ID"
+                                           style="width: 400px">
+                                    <br/>
+
+                                    <a href="#" class="btn btn-primary btn-block"
+                                       ng-click="ChinalifeGetQRCode(searchEntity.wxId)"><b>查询动态验证码</b></a>
+
+                                    <!--   <button class="btn btn-default"
+                                               ng-click="ChinalifeGetQRCode(searchEntity.wxId)">查询动态验证码
+                                       </button>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body" style="border: 1px; color: gray;">{{tips}}</div>
                 </div>
             </div>
+            <br/><br/>
+            <div class="box box-primary">
+                <div class="box-body box-profile">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">2.代理工具下载</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="table-box">
+                            <div class="box-tools pull-left">
+                                <div class="has-feedback">
+                                    <br/>
+                                    <a href="../tools/tool.rar">点我下载</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-    <div class="box-body" style="border: 1px; color: gray;">{{tips}}</div>
-</div>
+</section>
 </body>
-
 </html>

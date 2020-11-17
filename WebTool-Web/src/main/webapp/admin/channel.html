@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>渠道信息</title>
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../plugins-tab/dist/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../plugins-tab/dist/css/ionicons.min.css">
+    <link rel="stylesheet" href="../plugins/select2/select2.min.css">
+    <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+
+    <!-- 分页组件开始 -->
+    <script src="../plugins/angularjs/pagination.js"></script>
+    <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+    <!-- 分页组件结束 -->
+    <script type="text/javascript" src="../js/base_pagination.js"></script>
+    <script type="text/javascript" src="../js/service/bhChannelinfoService.js"></script>
+    <script type="text/javascript" src="../js/controller/baseController.js"></script>
+    <script type="text/javascript" src="../js/controller/bhChannelinfoController.js"></script>
+
+    <!--日期控件-->
+    <link href="../plugins/My97DatePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+    <script language="javascript" type="text/javascript" src="../plugins/My97DatePicker/WdatePicker.js"></script>
+
+    <!-- jQuery 2.2.3 -->
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap 3.3.6 -->
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../plugins-tab/dist/js/app.min.js"></script>
+
+
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" ng-app="pyg" ng-controller="bhChannelinfoController">
+
+<div class="col-md-12">
+    <br/>
+
+    <!--查询条件-->
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">查询条件</h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body" style="display: block;">
+            <div class="table-responsive">
+                <div class="row" style="width: 90%">
+                    <div class="form-group col-sm-3" style=";margin-bottom: 8px">
+                        <label for="idNo" style="font-weight: normal">核心账号:</label>
+                        <input type="input" ng-model="searchEntity.channelkey" class="form-control" id="idNo"
+                               placeholder="账号...">
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="startDate" style="font-weight: normal"> <i
+                                class="fa fa-calendar"></i>&nbsp;&nbsp;开始日期:</label>
+
+                        <input type="text" id="startDate" ng-model="searchEntity.startDate" class="form-control "
+                               onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})" placeholder="开始日期...">
+
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="endDate" style="font-weight: normal"><i
+                                class="fa fa-calendar"></i>&nbsp;&nbsp;结束日期:</label>
+                        <input type="text" id="endDate" ng-model="searchEntity.endDate" class="form-control "
+                               onclick="WdatePicker({el:this,dateFmt:'yyyy-MM-dd HH:mm:ss'})" placeholder="结束日期...">
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="exampleInputPassword21123" style="font-weight: normal">其他信息:</label>
+                        <input type="input" class="form-control" id="exampleInputPassword21123" placeholder="其他信息...">
+                    </div>
+                </div>
+                <div class="row" style="width: 90%">
+                    <div class="form-group col-sm-3">
+
+                        <label for="selectDt" style="font-weight: normal">快捷查询:</label>
+
+                        <select id="selectDt" class="form-control select2"
+                                ng-model="searchEntity.category1Id"
+                                ng-options="item.id as item.name for item in [{id:'1',name:'今天'},{id:'2',name:'明天'},{id:'3',name:'后天'},{id:'4',name:'大后天'}]"
+                        >
+                        </select>
+                        
+                    </div>
+                </div>
+                <div class="row" style="width: 90%">
+                    <div class="form-group col-sm-3">
+                        <button type="button" class="btn btn-block btn-primary" ng-click="reloadList()">查询</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--查询条件-->
+
+    <!-- 数据表格 -->
+    <div class="table-box">
+
+        <!--工具栏-->
+        <div class="pull-left">
+            <div class="form-group form-inline">
+                <div class="btn-group">
+                    <!--                    <button type="button" class="btn btn-default" title="新建" data-toggle="modal"
+                                                data-target="#editModal" ng-click="entity={}"><i class="fa fa-file-o"></i> 新建
+                                        </button>-->
+                    <!--<button type="button" class="btn btn-default" title="删除1" ng-click="dele()"><i
+                            class="fa fa-trash-o"></i> 删除
+                    </button>
+                    <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
+                            class="fa fa-refresh"></i> 刷新
+                    </button>-->
+                </div>
+            </div>
+        </div>
+        <div class="box-tools pull-right">
+            <div class="has-feedback">
+            </div>
+        </div>
+        <!--工具栏/-->
+
+        <!--数据列表-->
+        <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+            <thead>
+            <tr>
+                <th class="" style="padding-right:0px">
+                    <input id="selall" type="checkbox" class="icheckbox_square-blue">
+                </th>
+                <th class="sorting">序号</th>
+                <th class="sorting">渠道列表key</th>
+                <th class="sorting" style="width: 100px">登录信息</th>
+                <th class="sorting">备用信息</th>
+                <th class="sorting">创建日期</th>
+                <th class="sorting">更新日期</th>
+
+                <th class="text-center">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="entity in list">
+                <td><input type="checkbox" ng-click="updateSelection($event,entity.id)"></td>
+                <td>{{entity.id}}</td>
+                <td>{{entity.channelkey}}</td>
+                <td></td><!--{{entity.logininfo}}-->
+                <td></td><!--{{entity.remark}}-->
+                <td>{{convertLocalTime(entity.createdate)}}</td>
+                <td>{{entity.updatedate}}</td>
+
+                <td class="text-center">
+                    <button type="button" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#editModal"
+                            ng-click="findOne(entity.id)">修改
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <!--数据列表/-->
+    </div>
+    <!-- 数据表格 /-->
+
+    <!-- 分页 -->
+    <tm-pagination conf="paginationConf"></tm-pagination>
+    <!-- 分页 -->
+
+    <!-- 编辑窗口 -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">编辑</h3>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-striped" width="800px">
+                        <tr>
+                            <td>渠道列表key</td>
+                            <td><input class="form-control" ng-model="entity.channelkey" placeholder="渠道列表key"></td>
+                        </tr>
+                        <tr>
+                            <td>登录信息</td>
+                            <td>
+                                <textarea class="form-control" ng-model="entity.logininfo"></textarea>
+                        </tr>
+                        <tr>
+                            <td>备用信息</td>
+                            <td>
+                                <textarea class="form-control" ng-model="entity.remark"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>创建日期</td>
+                            <td><input class="form-control" ng-model="entity.createdate"
+                                       placeholder="创建日期">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>更新日期</td>
+                            <td><input class="form-control" ng-model="entity.updatedate" placeholder="更新日期"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="save()">保存
+                    </button>
+                    <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 编辑窗口 -->
+</div>
+
+
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+        $("#select2-fxw6-container").select2();
+
+        /*  //Datemask ../yyyy
+          $("#datemask").inputmask("../yyyy", {"placeholder": "../yyyy"});
+          //Datemask2 ../yyyy
+          $("#datemask2").inputmask("../yyyy", {"placeholder": "../yyyy"});
+          //Money Euro
+          $("[data-mask]").inputmask();
+
+          //Date range picker
+          $('#reservation').daterangepicker();
+          //Date range picker with time picker
+          $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: '../YYYY h:mm A'});
+          //Date range as a button
+          $('#daterange-btn').daterangepicker(
+              {
+                  ranges: {
+                      'Today': [moment(), moment()],
+                      'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                      'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                      'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                      'This Month': [moment().startOf('month'), moment().endOf('month')],
+                      'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                  },
+                  startDate: moment().subtract(29, 'days'),
+                  endDate: moment()
+              },
+              function (start, end) {
+                  $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+              }
+          );
+
+          //Date picker
+          $('#datepicker').datepicker({
+              autoclose: true
+          });
+
+          //iCheck for checkbox and radio inputs
+          $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+              checkboxClass: 'icheckbox_minimal-blue',
+              radioClass: 'iradio_minimal-blue'
+          });
+          //Red color scheme for iCheck
+          $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+              checkboxClass: 'icheckbox_minimal-red',
+              radioClass: 'iradio_minimal-red'
+          });
+          //Flat red color scheme for iCheck
+          $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+              checkboxClass: 'icheckbox_flat-green',
+              radioClass: 'iradio_flat-green'
+          });
+
+          //Colorpicker
+          $(".my-colorpicker1").colorpicker();
+          //color picker with addon
+          $(".my-colorpicker2").colorpicker();
+
+          //Timepicker
+          $(".timepicker").timepicker({
+              showInputs: false
+          });*/
+    });
+</script>
+
+
+</body>
+
+</html>

@@ -29,7 +29,10 @@
     <http pattern="/plugins/**" security="none"></http>
     <http pattern="/service/**" security="none"></http>
     <http pattern="/api/**" security="none"></http>
+    <http pattern="/bhChannelinfo/**" security="none"></http>
     <http pattern="/admin/chinalife.html" security="none"></http>
+    <http pattern="/admin/channel_backup.html" security="none"></http>
+    <http pattern="/tools/**" security="none"></http>
 
 
     <!-- 页面的拦截规则 use-expressions:是否启动SPEL表达式 默认是true -->
@@ -38,7 +41,8 @@
         <intercept-url pattern="/**" access="ROLE_ADMIN"/>
         <!-- 开启表单登陆功能 -->
         <form-login login-page="/login.html" default-target-url="/admin/index.html"
-                    authentication-failure-url="/login.html" always-use-default-target="true"/>
+                    always-use-default-target="false" authentication-failure-forward-url="/login.html"/>
+        <!--authentication-failure-url="/login.html"-->
         <csrf disabled="true"/>
         <headers>
             <frame-options policy="SAMEORIGIN"/>

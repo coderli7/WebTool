@@ -1,68 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:task="http://www.springframework.org/schema/task"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd">
-	<context:property-placeholder location="classpath:config/application.properties" />
 
-	<!-- 对包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
-	<context:component-scan base-package="com.lxl.webtool"
-		use-default-filters="true">
+    <context:property-placeholder location="classpath:config/application.properties"/>
 
-		<context:include-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
+    <!-- 对包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
+    <context:component-scan base-package="com.lxl.webtool"
+                            use-default-filters="true">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
-	</context:component-scan>
+    <!-- 配置多媒体解析器 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <!-- 设定文件上传的最大值5MB，5*1024*1024 -->
+        <property name="maxUploadSize" value="52428800"></property>
+    </bean>
 
+    <bean id="caseInsensitivePathMatcher" class="com.lxl.webtool.config.PathMatcher"/>
 
-	<!-- 配置多媒体解析器 -->
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="defaultEncoding" value="UTF-8"></property>
-		<!-- 设定文件上传的最大值5MB，5*1024*1024 -->
-		<property name="maxUploadSize" value="52428800"></property>
-	</bean>
+    <mvc:default-servlet-handler/>
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean
+                    class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes" value="application/json"/>
+                <property name="features">
+                    <array>
+                        <value>WriteMapNullValue</value>
+                        <value>WriteDateUseDateFormat</value>
+                    </array>
+                </property>
+            </bean>
+        </mvc:message-converters>
+        <mvc:path-matching path-matcher="caseInsensitivePathMatcher"/>
+    </mvc:annotation-driven>
 
-	<bean id="caseInsensitivePathMatcher" class="com.lxl.webtool.config.PathMatcher" />
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/api/**"/>
+            <mvc:exclude-mapping path="/api/login"/>
+            <bean
+                    class="com.lxl.webtool.controller.interceptor.TokenHandlerInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
-	<mvc:default-servlet-handler />
-	<mvc:annotation-driven>
-		<mvc:message-converters register-defaults="true">
-			<bean
-				class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
-				<property name="supportedMediaTypes" value="application/json" />
-				<property name="features">
-					<array>
-						<value>WriteMapNullValue</value>
-						<value>WriteDateUseDateFormat</value>
-					</array>
-				</property>
-			</bean>
-		</mvc:message-converters>
-		<mvc:path-matching path-matcher="caseInsensitivePathMatcher" />
-	</mvc:annotation-driven>
+    <task:annotation-driven scheduler="myScheduler"/>
 
+    <!--<task:executor id="executor" keep-alive="3600" pool-size="100-200" queue-capacity="500" rejection-policy="CALLER_RUNS" />-->
+    <task:executor id="executor" pool-size="10"/>
 
-	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/api/**" />
-			<mvc:exclude-mapping path="/api/login" />
-			<bean
-				class="com.lxl.webtool.controller.interceptor.TokenHandlerInterceptor" />
-		</mvc:interceptor>
-	</mvc:interceptors>
-
-
-
-	<task:annotation-driven scheduler="myScheduler" />
-
-	<task:scheduler id="myScheduler" pool-size="10" />
-
+    <task:scheduler id="myScheduler" pool-size="10"/>
 
 </beans>
