@@ -67,6 +67,8 @@ app.controller('bhChannelinfoController', function ($scope, $controller, bhChann
 
     $scope.searchEntity = {};//定义搜索对象
 
+
+
     //搜索
     $scope.search = function (page, rows) {
         console.log($scope.searchEntity.channelkey);
@@ -74,13 +76,14 @@ app.controller('bhChannelinfoController', function ($scope, $controller, bhChann
         var obj = {'startDate': '', 'endDate': ''};
         obj.startDate = document.querySelector("#startDate").value;
         obj.endDate = document.querySelector("#endDate").value;
-        console.log(JSON.stringify(obj.startDate));
-        console.log(JSON.stringify(obj.endDate));
-        console.log(JSON.stringify(obj));
 
         $scope.searchEntity.remark = JSON.stringify(obj);
         bhChannelinfoService.search(page, rows, $scope.searchEntity).success(
             function (response) {
+                // 默认不选中行
+           /*     response.rows.forEach(item = > {
+                    item.pageChecked = false;
+            });*/
                 $scope.list = response.rows;
                 $scope.paginationConf.totalItems = response.total;//更新总记录数
             }

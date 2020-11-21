@@ -131,7 +131,6 @@ public class BhChannelinfoController {
      */
     @RequestMapping("/addChannelCookie")
     public BaseResult addChannelCookie(@RequestBody BhLoginInfoRequest loginInfoRequest) {
-        System.out.println("test-555");
         return bhChannelinfoService.addChannelCookie(loginInfoRequest);
     }
 
@@ -146,5 +145,4 @@ public class BhChannelinfoController {
         String channelKey = loginInfoRequest.getChannelKey();
         return bhChannelinfoService.getChannelCookie(channelKey);
     }
-
 }

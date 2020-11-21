@@ -24,6 +24,9 @@ app
 
             $scope.selectIds = [];// 选中的ID集合
 
+            // 标记行是否选中
+            $scope.selectAllLineChkBox = false;
+
             // 更新复选
             $scope.updateSelection = function ($event, id) {
                 if ($event.target.checked) {// 如果是被选中,则增加到数组

@@ -73,14 +73,13 @@
                class="table table-bordered table-striped table-hover dataTable">
             <thead>
             <tr>
-                <th class="" style="padding-right: 0px"><input
+                <th class="" style="width: 8%;"><input
                         type="checkbox" ng-click="selectAllLine()"
-                        ng-model="selectAllLineChkBox">全选/反选
+                        ng-model="selectAllLineChkBox">全选&nbsp;<input
+                        type="checkbox"
+                        class="icheckbox_square-blue" ng-click="selectAllLine()">反选
                 </th>
-                <!-- <input id="selall"
-                    class="icheckbox_square-blue"> -->
-                <!-- type="checkbox" -->
-                <th class="text-center">序号</th>
+                <th class="text-center">行号</th>
                 <th class="text-center">案件编号</th>
                 <th class="text-center">案件状态</th>
                 <th class="text-center">案件日期</th>
