@@ -175,7 +175,6 @@ angular.module('pagination', []).directive('tmPagination',[function(){
             
 
             scope.$watch(function() {
-                
 
                 if(!scope.conf.totalItems) {
                     scope.conf.totalItems = 0;

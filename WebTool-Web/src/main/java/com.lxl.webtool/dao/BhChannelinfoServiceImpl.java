@@ -91,14 +91,13 @@ public class BhChannelinfoServiceImpl implements BhChannelinfoService {
 
     @Override
     public PageResult findPage(TbBhChannelinfo bhChannelinfo, int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+        // PageHelper.startPage(pageNum, pageSize, true);
 
         //需要根据remark字段,转化时间戳
         Long startDateVal = 0L, endDateVal = 0L;
         String channelinfoRemark = bhChannelinfo.getRemark();
         if (StringUtils.isNotBlank(channelinfoRemark)) {
             BHChannelRemarkInfoRequest channelRemark = JSON.parseObject(channelinfoRemark, BHChannelRemarkInfoRequest.class);
-
             String startDate = channelRemark.getStartDate();
             if (StringUtils.isNotBlank(startDate)) {
                 //将字符串转化为时间戳
@@ -131,12 +130,14 @@ public class BhChannelinfoServiceImpl implements BhChannelinfoService {
             if (endDateVal > 0 && endDateVal > startDateVal) {
                 criteria.andCreatedateLessThanOrEqualTo(endDateVal.intValue());
             }
-
-
         }
+        List<TbBhChannelinfo> channelinfos = bhChannelinfoMapper.selectByExampleNew(example, pageSize * pageNum, pageSize);
+        int totalRows = bhChannelinfoMapper.countSelectByExampleNew(example);
+        // int totalRows = bhChannelinfoMapper.countByExample(null);
 
-        Page<TbBhChannelinfo> page = (Page<TbBhChannelinfo>) bhChannelinfoMapper.selectByExample(example);
-        return new PageResult(page.getTotal(), page.getResult());
+        // Page<TbBhChannelinfo> page = (Page<TbBhChannelinfo>) channelinfos;
+        return new PageResult(totalRows, channelinfos);
+        // return new PageResult(totalRows, page.getResult());
     }
 
     @Override
@@ -147,12 +148,10 @@ public class BhChannelinfoServiceImpl implements BhChannelinfoService {
         channelinfo.setChannelkey(channelKey);
         channelinfo.setLogininfo(cookie);
         channelinfo.setCreatedate(System.currentTimeMillis() / 1000);
-
         Object loginInfoRequestData = loginInfoRequest.getData();
-
         //插入渠道信息
         if (loginInfoRequestData != null) {
-            String data = (String)loginInfoRequestData.toString();
+            String data = loginInfoRequestData.toString();
             //将传入的对象转化为本地存储对象,暂时不做任何处理，直接将本地cookie存储下即可
             channelinfo.setRemark(data);
         }

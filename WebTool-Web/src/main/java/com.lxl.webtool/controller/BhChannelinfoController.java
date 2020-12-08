@@ -119,7 +119,6 @@ public class BhChannelinfoController {
      */
     @RequestMapping("/search")
     public PageResult search(@RequestBody TbBhChannelinfo bhChannelinfo, int page, int rows) {
-
         return bhChannelinfoService.findPage(bhChannelinfo, page, rows);
     }
 

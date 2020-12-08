@@ -4,6 +4,32 @@ app
         'baseController',
         function ($scope, $filter) {
 
+            $scope.reload = true;
+
+            //标记不监控当前菜单项是否变更,避免触发多次查询
+            $scope.unWatchPage = false;
+
+            // 分页控件配置
+            $scope.paginationConf = {
+                currentPage: 0,
+                totalItems: 0,
+                itemsPerPage: 15,
+                perPageOptions: [15, 30, 45, 100],
+                onChange: function () {
+                    console.log("页码切换了!!!");
+                    console.log($scope.paginationConf.totalItems + '-' + $scope.paginationConf.currentPage + '-' + $scope.paginationConf.itemsPerPage);
+                    if (!$scope.reload) {
+                        return;
+                    }
+                    $scope.reloadList();// 重新加载
+                    $scope.reload = false;
+                    setTimeout(function () {
+                        $scope.reload = true;
+                    }, 500);
+
+                }
+            };
+
             // 重新加载列表 数据
             $scope.reloadList = function () {
                 // 切换页码
@@ -11,16 +37,6 @@ app
                     $scope.paginationConf.itemsPerPage);
             }
 
-            // 分页控件配置
-            $scope.paginationConf = {
-                currentPage: 1,
-                totalItems: 10,
-                itemsPerPage: 15,
-                perPageOptions: [15, 30, 45, 100],
-                onChange: function () {
-                    $scope.reloadList();// 重新加载
-                }
-            };
 
             $scope.selectIds = [];// 选中的ID集合
 

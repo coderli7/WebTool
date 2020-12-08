@@ -1,5 +1,5 @@
 //控制层
-app.controller('bhChannelinfoController', function ($scope, $controller, bhChannelinfoService) {
+app.controller('bhChannelinfoController', function ($scope, $controller, $q, bhChannelinfoService) {
 
     $controller('baseController', {$scope: $scope});//继承
 
@@ -68,26 +68,32 @@ app.controller('bhChannelinfoController', function ($scope, $controller, bhChann
     $scope.searchEntity = {};//定义搜索对象
 
 
-
     //搜索
     $scope.search = function (page, rows) {
-        console.log($scope.searchEntity.channelkey);
-        // console.log($scope.searchEntity.startDate + "======" + $scope.searchEntity.endDate);
+        console.log("begin!!!");
+        console.log(new Date().getTime());
         var obj = {'startDate': '', 'endDate': ''};
         obj.startDate = document.querySelector("#startDate").value;
         obj.endDate = document.querySelector("#endDate").value;
-
         $scope.searchEntity.remark = JSON.stringify(obj);
-        bhChannelinfoService.search(page, rows, $scope.searchEntity).success(
-            function (response) {
-                // 默认不选中行
-           /*     response.rows.forEach(item = > {
-                    item.pageChecked = false;
-            });*/
-                $scope.list = response.rows;
-                $scope.paginationConf.totalItems = response.total;//更新总记录数
-            }
-        );
+
+        bhChannelinfoService.search(page, rows, $scope.searchEntity).success(function (response) {
+            console.log("得到结果:" + response.total)
+            console.log(new Date().getTime());
+            $scope.list = response.rows;
+            $scope.paginationConf.totalItems = response.total;//更新总记录数
+            console.log(new Date().getTime());
+            $scope.unWatchPage = false;
+            console.log("得到结果:" + "赋值完毕！！！")
+        });
+        console.log("OK!!!");
     }
 
-});	
+
+    $scope.searchNew = function () {
+        $scope.paginationConf.currentPage = 1;
+        search($scope.paginationConf.currentPage, $scope.paginationConf.itemsPerPage);
+    }
+
+
+});

@@ -19,6 +19,10 @@ public interface TbBhChannelinfoMapper {
 
     List<TbBhChannelinfo> selectByExample(TbBhChannelinfoExample example);
 
+    List<TbBhChannelinfo> selectByExampleNew(@Param("example") TbBhChannelinfoExample example, @Param("pageStart") int pageStart, @Param("pageSize") int pageSize);
+
+    int countSelectByExampleNew(@Param("example") TbBhChannelinfoExample example);
+
     TbBhChannelinfo selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") TbBhChannelinfo record, @Param("example") TbBhChannelinfoExample example);
@@ -28,4 +32,7 @@ public interface TbBhChannelinfoMapper {
     int updateByPrimaryKeySelective(TbBhChannelinfo record);
 
     int updateByPrimaryKey(TbBhChannelinfo record);
+
+
+
 }
