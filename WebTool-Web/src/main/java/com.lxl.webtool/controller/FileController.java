@@ -1,6 +1,7 @@
 package com.lxl.webtool.controller;
 
 import com.lxl.webtool.commonutils.FastDFSClient;
+import com.lxl.webtool.commonutils.MyFileUtils;
 import com.lxl.webtool.dao.FileService;
 import com.lxl.webtool.dao.pojo.TbFile;
 import com.lxl.webtool.model.FastDFSFile;
@@ -11,14 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
 /**
  * controller
+ * 自定义文件上传
  *
  * @author Administrator
  */
@@ -29,68 +35,82 @@ public class FileController {
     @Autowired
     private FileService fileService;
 
-
     /**
      * 文件上传
      *
      * @param file
      * @param index
+     * @param localStoreSign
      * @return
      * @throws IOException
      */
     @RequestMapping("/fileUpload")
-    public Result fileUpload(MultipartFile file, String index)
+    public Result fileUpload(MultipartFile file, String index, String localStoreSign)
             throws IOException {
 
         Result uploadResult = new Result();
         uploadResult.setMessage(index);
 
-
+        //0.获取基本信息
         String originalFilename = file.getOriginalFilename();
-        System.out.println(originalFilename + "4");
+        String extName = (originalFilename.lastIndexOf('.') > 0) ? originalFilename.substring(originalFilename.lastIndexOf('.') + 1) : "";
 
-        String extName = "";
-        int extIdx = originalFilename.lastIndexOf('.');
-        if (extIdx > 0) {
-            extName = originalFilename.substring(extIdx + 1);
-        }
-
-        byte[] fileBuff = null;
-        InputStream inputStream = file.getInputStream();
-        if (inputStream != null) {
-            int fileLen = inputStream.available();
-            fileBuff = new byte[fileLen];
-            inputStream.read(fileBuff);
-        }
-        inputStream.close();
-
-        String author = "";
-
-        // 0.初始化文件上传封装model
-        FastDFSFile fastDFSFile = new FastDFSFile();
-        fastDFSFile.setName(originalFilename);
-        fastDFSFile.setContent(fileBuff);
-        fastDFSFile.setExt(extName);
-        fastDFSFile.setAuthor(author);
-
-        //1.先上传到fastdfs服务器
-        String[] upLoadResult = FastDFSClient.upload(fastDFSFile);
-
-        if (upLoadResult != null) {
-
-            //2.插入数据库
+        if ("1".equals(localStoreSign)) {
+            //0.存储在本地目录中
+            //0.解决本地目录的问题
+            HttpServletRequest httpServletRequest = ((ServletRequestAttributes) RequestContextHolder
+                    .getRequestAttributes()).getRequest();
+            String filePath = httpServletRequest.getSession().getServletContext()
+                    .getRealPath("/tools");
+            File curFile = new File(filePath);
+            if (!curFile.exists()) {
+                curFile.mkdirs();
+            }
+            //1.存储本地
+            MyFileUtils.saveFileLocal(file,filePath,originalFilename);
             TbFile tbFile = new TbFile();
             tbFile.setFilename(originalFilename);
-            tbFile.setUsercode(author);
-            String orgPath = StringUtils.join(upLoadResult, '/');
-            String httpPath = String.format("%s/%s", "http://192.168.4.53:8089", orgPath);
+            tbFile.setUsercode("");
+            String orgPath = String.format("%s\\%s", filePath, originalFilename);
             tbFile.setFilepath(orgPath);
-            tbFile.setHttpfilepath(httpPath);
             fileService.add(tbFile);
             uploadResult.setSuccess(true);
+
         } else {
-            uploadResult.setSuccess(false);
+            //0.读取byte
+            byte[] fileBuff = null;
+            InputStream inputStream = file.getInputStream();
+            if (inputStream != null) {
+                int fileLen = inputStream.available();
+                fileBuff = new byte[fileLen];
+                inputStream.read(fileBuff);
+            }
+            inputStream.close();
+
+            // 1.初始化文件上传封装model
+            FastDFSFile fastDFSFile = new FastDFSFile();
+            fastDFSFile.setName(originalFilename);
+            fastDFSFile.setContent(fileBuff);
+            fastDFSFile.setExt(extName);
+            fastDFSFile.setAuthor("");
+            //2.先上传到fastdfs服务器
+            String[] upLoadResult = FastDFSClient.upload(fastDFSFile);
+            //3.将信息存储到数据库中
+            if (upLoadResult != null) {
+                TbFile tbFile = new TbFile();
+                tbFile.setFilename(originalFilename);
+                tbFile.setUsercode("");
+                String orgPath = StringUtils.join(upLoadResult, '/');
+                String httpPath = String.format("%s/%s", "http://192.168.4.53:8089", orgPath);
+                tbFile.setFilepath(orgPath);
+                tbFile.setHttpfilepath(httpPath);
+                fileService.add(tbFile);
+                uploadResult.setSuccess(true);
+            } else {
+                uploadResult.setSuccess(false);
+            }
         }
+
 
         return uploadResult;
     }
@@ -181,7 +201,7 @@ public class FileController {
     /**
      * 查询+分页
      *
-     * @param brand
+     * @param
      * @param page
      * @param rows
      * @return

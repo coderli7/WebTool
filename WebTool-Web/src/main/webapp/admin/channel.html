@@ -83,11 +83,9 @@
                 </div>
                 <div class="row" style="width: 90%">
                     <div class="form-group col-sm-3">
-
                         <label for="selectDt" style="font-weight: normal">快捷查询:</label>
-
                         <select id="selectDt" class="form-control select2"
-                                ng-model="searchEntity.category1Id"
+                                ng-model="searchEntity.quickDateRange"
                                 ng-options="item.id as item.name for item in [{id:'1',name:'今天'},{id:'2',name:'明天'},{id:'3',name:'后天'},{id:'4',name:'大后天'}]"
                         >
                         </select>

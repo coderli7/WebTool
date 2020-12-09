@@ -49,7 +49,6 @@ public class FileServiceImpl implements FileService {
         fileMapper.insert(file);
     }
 
-
     /**
      * 修改
      */
@@ -78,7 +77,6 @@ public class FileServiceImpl implements FileService {
             fileMapper.deleteByPrimaryKey(id.intValue());
         }
     }
-
 
     @Override
     public PageResult findPage(TbFile file, int pageNum, int pageSize) {

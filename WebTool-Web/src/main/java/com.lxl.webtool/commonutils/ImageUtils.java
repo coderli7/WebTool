@@ -26,7 +26,6 @@ public class ImageUtils {
 	 */
 	public static void saveImageFromBase64(String base64Str, String outFilePath)
 			throws IOException {
-
 		// 使用正则替换
 		String replaceRegex = "data:image/[\\S|\\s]*?base64,";
 		String imgVal = base64Str.replaceFirst(replaceRegex, "");

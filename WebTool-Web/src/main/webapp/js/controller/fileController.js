@@ -80,6 +80,7 @@ app.controller('fileController', function ($scope, $controller, fileService) {
 
     $scope.selectEntity = [];
 
+    $scope.localStoreSign="1";
 
     $scope.selectFile = function () {
         $scope.selectEntity = [];
@@ -109,11 +110,23 @@ app.controller('fileController', function ($scope, $controller, fileService) {
 
     // 上传图片
     $scope.uploadFile = function () {
+
+        //判定是否存储服务器本地
+        if($scope.localStoreSign=="1"){
+            console.log("存储服务器本地");
+        }else{
+            console.log("存储文件服务器");
+        }
+
+
+
+
         for (var i = 0; i < file.files.length; i++) {
             var formdata = new FormData();
             var curFile = file.files[i];
             formdata.append('file', curFile);
             formdata.append("index", i);
+            formdata.append("localStoreSign", $scope.localStoreSign);
             fileService.uploadFile2(formdata).success(function (response) {
                 //重置状态
                 console.log($scope.selectEntity[response.message]);
