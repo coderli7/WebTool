@@ -6,14 +6,14 @@ app
 
             $scope.reload = true;
 
-            //标记不监控当前菜单项是否变更,避免触发多次查询
-            $scope.unWatchPage = false;
+            //标记是否正在查询
+            $scope.searching = false;
 
             // 分页控件配置
             $scope.paginationConf = {
-                currentPage: 0,
-                totalItems: 0,
-                itemsPerPage: 15,
+                /*            currentPage: 0,
+                            totalItems: 0,
+                            itemsPerPage: 15,*/
                 perPageOptions: [15, 30, 45, 100],
                 onChange: function () {
                     console.log("页码切换了!!!");
@@ -32,6 +32,11 @@ app
 
             // 重新加载列表 数据
             $scope.reloadList = function () {
+                if ($scope.searching) {
+                    console.log("正在查询！！！");
+                    return;
+                }
+
                 // 切换页码
                 $scope.search($scope.paginationConf.currentPage,
                     $scope.paginationConf.itemsPerPage);
