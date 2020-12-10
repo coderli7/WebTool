@@ -131,7 +131,7 @@ public class BhChannelinfoServiceImpl implements BhChannelinfoService {
                 criteria.andCreatedateLessThanOrEqualTo(endDateVal.intValue());
             }
         }
-        List<TbBhChannelinfo> channelinfos = bhChannelinfoMapper.selectByExampleNew(example, pageSize * pageNum, pageSize);
+        List<TbBhChannelinfo> channelinfos = bhChannelinfoMapper.selectByExampleNew(example, pageSize * (pageNum - 1), pageSize);
         int totalRows = bhChannelinfoMapper.countSelectByExampleNew(example);
         // int totalRows = bhChannelinfoMapper.countByExample(null);
 
