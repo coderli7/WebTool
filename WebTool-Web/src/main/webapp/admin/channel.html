@@ -189,17 +189,6 @@
                             <td><input class="form-control" ng-model="entity.channelkey" placeholder="渠道列表key"></td>
                         </tr>
                         <tr>
-                            <td>登录信息</td>
-                            <td>
-                                <textarea class="form-control" ng-model="entity.logininfo"></textarea>
-                        </tr>
-                        <tr>
-                            <td>备用信息</td>
-                            <td>
-                                <textarea class="form-control" ng-model="entity.remark"></textarea>
-                            </td>
-                        </tr>
-                        <tr>
                             <td>创建日期</td>
                             <td><input class="form-control" ng-model="entity.createdate"
                                        placeholder="创建日期">
@@ -210,6 +199,26 @@
                             <td><input class="form-control" ng-model="entity.updatedate" placeholder="更新日期"></td>
                         </tr>
                     </table>
+
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#logintab" data-toggle="tab">登录信息</a>
+                            </li>
+                            <li><a href="#remarktab" data-toggle="tab">备注</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="logintab" style="word-wrap: break-word">
+                                <!--resize:none | both | horizontal | vertical;-->
+                                <!--禁止调整 | 可调宽高 | 可调宽 | 可调高-->
+                                <textarea class="form-control" rows="9" ng-model="entity.logininfo"
+                                          style="resize:vertical "></textarea>
+                            </div>
+                            <div class="tab-pane " id="remarktab" style="word-wrap: break-word">
+                                 <textarea class="form-control" rows="9" ng-model="entity.remark"
+                                           style="resize:vertical "></textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="save()">保存
@@ -220,75 +229,8 @@
         </div>
     </div>
     <!-- 编辑窗口 -->
+    
 </div>
-
-
-<!-- /* $(function () {
-      //Initialize Select2 Elements
-      $("#select2-fxw6-container").select2();*/
-
-      /*  //Datemask ../yyyy
-        $("#datemask").inputmask("../yyyy", {"placeholder": "../yyyy"});
-        //Datemask2 ../yyyy
-        $("#datemask2").inputmask("../yyyy", {"placeholder": "../yyyy"});
-        //Money Euro
-        $("[data-mask]").inputmask();
-
-        //Date range picker
-        $('#reservation').daterangepicker();
-        //Date range picker with time picker
-        $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: '../YYYY h:mm A'});
-        //Date range as a button
-        $('#daterange-btn').daterangepicker(
-            {
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                },
-                startDate: moment().subtract(29, 'days'),
-                endDate: moment()
-            },
-            function (start, end) {
-                $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-            }
-        );
-
-        //Date picker
-        $('#datepicker').datepicker({
-            autoclose: true
-        });
-
-        //iCheck for checkbox and radio inputs
-        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-            checkboxClass: 'icheckbox_minimal-blue',
-            radioClass: 'iradio_minimal-blue'
-        });
-        //Red color scheme for iCheck
-        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-            checkboxClass: 'icheckbox_minimal-red',
-            radioClass: 'iradio_minimal-red'
-        });
-        //Flat red color scheme for iCheck
-        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-            checkboxClass: 'icheckbox_flat-green',
-            radioClass: 'iradio_flat-green'
-        });
-
-        //Colorpicker
-        $(".my-colorpicker1").colorpicker();
-        //color picker with addon
-        $(".my-colorpicker2").colorpicker();
-
-        //Timepicker
-        $(".timepicker").timepicker({
-            showInputs: false
-        });*/
-  });
--->
 
 </body>
 

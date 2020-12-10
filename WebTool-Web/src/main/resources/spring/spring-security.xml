@@ -30,10 +30,10 @@
     <http pattern="/service/**" security="none"></http>
     <http pattern="/api/**" security="none"></http>
     <http pattern="/bhChannelinfo/**" security="none"></http>
-    <http pattern="/admin/chinalife.html" security="none"></http>
-    <http pattern="/admin/channel_backup.html" security="none"></http>
     <http pattern="/tools/**" security="none"></http>
-
+    <http pattern="/file/**" security="none"></http>
+    <http pattern="/admin/chinalife.html" security="none"></http>
+    <http pattern="/admin/fileUpload.html" security="none"></http>
 
     <!-- 页面的拦截规则 use-expressions:是否启动SPEL表达式 默认是true -->
     <http use-expressions="false">

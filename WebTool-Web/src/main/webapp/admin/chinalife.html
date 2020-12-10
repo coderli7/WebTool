@@ -26,22 +26,31 @@
     <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
     <!-- 分页组件结束 -->
 
+    <script type="text/javascript" src="../js/service/fileService.js"></script>
+
 
     <script type="text/javascript" src="../js/base_pagination.js">
 
     </script>
+
+
+    <script type="text/javascript" src="../js/service/fileService.js"></script>
+
+
     <script type="text/javascript" src="../js/service/searchService.js">
 
     </script>
+
     <script type="text/javascript" src="../js/controller/baseController.js">
 
     </script>
     <script type="text/javascript"
             src="../js/controller/searchController.js">
     </script>
+
 </head>
 <body class="hold-transition skin-red sidebar-mini" ng-app="pyg"
-      ng-controller="searchController">
+      ng-controller="searchController" ng-init="getTools();">
 
 <section class="content">
     <div class="row">
@@ -161,7 +170,31 @@
                         </div>
                     </div>
                     <div class="tab-pane " id="other">
-                        暂无
+
+
+                        <div class="box-body table-responsive no-padding">
+                            <table id="selectTable" class="table table-hover">
+
+                                <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>文件名</th>
+                                    <th>操作</th>
+
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr ng-repeat="item  in  tools ">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{item.fileName}}</td>
+                                    <td><a href="../{{item.downLoadPath}}">点我下载</a>&nbsp;&nbsp;&nbsp;&nbsp;<a
+                                            href="#" ng-click="delTools(item.fileName)">删除</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                     </div>
                 </div>
             </div>

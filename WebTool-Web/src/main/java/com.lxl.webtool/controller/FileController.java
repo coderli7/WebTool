@@ -5,6 +5,8 @@ import com.lxl.webtool.commonutils.MyFileUtils;
 import com.lxl.webtool.dao.FileService;
 import com.lxl.webtool.dao.pojo.TbFile;
 import com.lxl.webtool.model.FastDFSFile;
+import com.lxl.webtool.model.fileinfo.FileInfo;
+import com.lxl.webtool.pojo.BaseResult;
 import com.lxl.webtool.pojo.PageResult;
 import com.lxl.webtool.pojo.Result;
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,7 +70,7 @@ public class FileController {
                 curFile.mkdirs();
             }
             //1.存储本地
-            MyFileUtils.saveFileLocal(file,filePath,originalFilename);
+            MyFileUtils.saveFileLocal(file, filePath, originalFilename);
             TbFile tbFile = new TbFile();
             tbFile.setFilename(originalFilename);
             tbFile.setUsercode("");
@@ -110,8 +113,6 @@ public class FileController {
                 uploadResult.setSuccess(false);
             }
         }
-
-
         return uploadResult;
     }
 
@@ -211,4 +212,65 @@ public class FileController {
         return fileService.findPage(file, page, rows);
     }
 
+    @RequestMapping("/getTools")
+    public List<FileInfo> getTools() {
+        List<FileInfo> fileInfoList = new ArrayList<>();
+        try {
+            //1.从服务器tool目录下读取文件列表
+            HttpServletRequest httpServletRequest = ((ServletRequestAttributes) RequestContextHolder
+                    .getRequestAttributes()).getRequest();
+            String filePath = httpServletRequest.getSession().getServletContext()
+                    .getRealPath("/tools");
+            File toolsFileDirectory = new File(filePath);
+            if (toolsFileDirectory.exists() && toolsFileDirectory.isDirectory()) {
+                File[] files = toolsFileDirectory.listFiles();
+                for (File fileItem :
+                        files) {
+                    if (fileItem.isFile()) {
+                        String curFileName = fileItem.getName();
+
+                        FileInfo curFileInfo = new FileInfo();
+                        curFileInfo.setFileName(curFileName);
+                        curFileInfo.setDownLoadPath(String.format("%s/%s", "tools", curFileName));
+                        fileInfoList.add(curFileInfo);
+                    }
+                }
+            }
+        } finally {
+        }
+        return fileInfoList;
+    }
+
+    @RequestMapping("/delTools")
+    public BaseResult delTools(String toolName) {
+        BaseResult delResult = new BaseResult();
+        try {
+            //1.从服务器tool目录下读取文件列表
+            HttpServletRequest httpServletRequest = ((ServletRequestAttributes) RequestContextHolder
+                    .getRequestAttributes()).getRequest();
+            String filePath = httpServletRequest.getSession().getServletContext()
+                    .getRealPath("/tools");
+            File toolsFileDirectory = new File(filePath);
+            if (toolsFileDirectory.exists() && toolsFileDirectory.isDirectory()) {
+
+                File[] files = toolsFileDirectory.listFiles();
+                for (File fileItem :
+                        files) {
+                    if (fileItem.isFile()) {
+
+                        String serverFileName = fileItem.getName();
+                        if (serverFileName.equals(toolName)) {
+                            fileItem.delete();
+                            break;
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            delResult.setCode(-10000);
+            delResult.setMessage(e.getMessage());
+        } finally {
+        }
+        return delResult;
+    }
 }

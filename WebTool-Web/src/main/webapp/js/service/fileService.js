@@ -43,4 +43,16 @@ app.service('fileService', function ($http) {
             transformRequest: angular.identity
         });
     }
+
+    //获取tool目录
+    this.getTools = function () {
+        return $http.post('../file/getTools.do');
+    }
+
+
+    //删除工具
+    this.delTools = function (toolName) {
+        return $http.get('../file/delTools.do?toolName=' + toolName);
+    }
+
 });
