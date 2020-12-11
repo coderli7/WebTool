@@ -16,8 +16,6 @@ app
                             itemsPerPage: 15,*/
                 perPageOptions: [15, 30, 45, 100],
                 onChange: function () {
-                    console.log("页码切换了!!!");
-                    console.log($scope.paginationConf.totalItems + '-' + $scope.paginationConf.currentPage + '-' + $scope.paginationConf.itemsPerPage);
                     if (!$scope.reload) {
                         return;
                     }

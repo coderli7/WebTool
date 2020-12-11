@@ -71,26 +71,21 @@ app.controller('bhChannelinfoController', function ($scope, $controller, $q, bhC
     //搜索
     $scope.search = function (page, rows) {
         $scope.searching = true;
-        console.log("begin!!!");
         var obj = {'startDate': '', 'endDate': ''};
         obj.startDate = document.querySelector("#startDate").value;
         obj.endDate = document.querySelector("#endDate").value;
         $scope.searchEntity.remark = JSON.stringify(obj);
         bhChannelinfoService.search(page, rows, $scope.searchEntity).success(function (response) {
-            console.log("得到结果:" + response.total)
             $scope.list = response.rows;
             $scope.paginationConf.totalItems = response.total;//更新总记录数
             $scope.unWatchPage = false;
             $scope.searching = false;
-            console.log("得到结果:" + "赋值完毕！！！")
         });
-        console.log("OK!!!");
     }
 
 
     $scope.searchNew = function () {
         if ($scope.searching) {
-            console.log("正在查询！！！");
             return;
         }
         $scope.paginationConf.currentPage = 1;
@@ -102,12 +97,10 @@ app.controller('bhChannelinfoController', function ($scope, $controller, $q, bhC
 
     $scope.$watch('searchEntity.quickDateRange', function (newValue, oldValue) {
         //根据选择日期,自动修改
-        console.log("旧值：" + oldValue);
-        console.log("新值：" + newValue);
+
         if ("1" == newValue) {
             var myDate = new Date(); //毫秒，1970.1.1开始
             var curDt = myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate();
-            console.log("当前日期：" + curDt);
             //当天
             $scope.searchEntity.startDate = curDt + ' 00:00:00';
             $scope.searchEntity.endDate = curDt + ' 23:59:59';
