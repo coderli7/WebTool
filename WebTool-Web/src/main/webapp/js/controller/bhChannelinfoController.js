@@ -97,15 +97,22 @@ app.controller('bhChannelinfoController', function ($scope, $controller, $q, bhC
 
     $scope.$watch('searchEntity.quickDateRange', function (newValue, oldValue) {
         //根据选择日期,自动修改
-
-        if ("1" == newValue) {
-            var myDate = new Date(); //毫秒，1970.1.1开始
-            var curDt = myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate();
-            //当天
-            $scope.searchEntity.startDate = curDt + ' 00:00:00';
-            $scope.searchEntity.endDate = curDt + ' 23:59:59';
+        var myDate = new Date(); //毫秒，1970.1.1开始
+        if ("0" == newValue) {
+            //昨天
+            myDate = new Date(myDate.getTime() - (24 * 60 * 60 * 1000));
+        } else if ("1" == newValue) {
+            //今天
         } else if ("2" == newValue) {
+            //明天
+            myDate = new Date(myDate.getTime() + (24 * 60 * 60 * 1000));
+        } else if ("3" == newValue) {
+            //后天
+            myDate = new Date(myDate.getTime() + (2 * 24 * 60 * 60 * 1000));
         }
+        var curDt = myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate();
+        $scope.searchEntity.startDate = curDt + ' 00:00:00';
+        $scope.searchEntity.endDate = curDt + ' 23:59:59';
     });
 
 });
