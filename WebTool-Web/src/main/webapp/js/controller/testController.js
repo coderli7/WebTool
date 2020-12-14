@@ -1,5 +1,5 @@
 //控制层
-app.controller('usersController', function ($scope, $controller, $interval, usersService) {
+app.controller('testController', function ($scope, $controller, $interval, usersService) {
 
     $controller('baseController', {$scope: $scope});//继承
 
@@ -97,4 +97,8 @@ app.controller('usersController', function ($scope, $controller, $interval, user
         $scope.theTime1 = new Date().toLocaleTimeString();
     }, 2000);
 
-});	
+
+    $scope.brandList = {data: [{id: 1, text: '联想'}, {id: 2, text: '华为'}, {id: 3, text: '小米'}]};
+
+
+});
