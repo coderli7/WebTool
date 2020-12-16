@@ -1,6 +1,7 @@
 package com.lxl.webtool.controller;
 
 import com.lxl.webtool.commonutils.FastDFSClient;
+import com.lxl.webtool.commonutils.MyDateUtils;
 import com.lxl.webtool.commonutils.MyFileUtils;
 import com.lxl.webtool.dao.FileService;
 import com.lxl.webtool.dao.pojo.TbFile;
@@ -232,6 +233,9 @@ public class FileController {
                         FileInfo curFileInfo = new FileInfo();
                         curFileInfo.setFileName(curFileName);
                         curFileInfo.setDownLoadPath(String.format("%s/%s", "tools", curFileName));
+                        fileItem.lastModified();
+                        String dtStr = MyDateUtils.convertDateLong(fileItem.lastModified(), null);
+                        curFileInfo.setRemark(dtStr);
                         fileInfoList.add(curFileInfo);
                     }
                 }

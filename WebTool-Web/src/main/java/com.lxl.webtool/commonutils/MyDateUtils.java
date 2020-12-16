@@ -168,4 +168,17 @@ public class MyDateUtils {
         return time;
     }
 
+    /**
+     * 将时间戳转化为字符串
+     *
+     * @param times
+     * @param dfType
+     * @return
+     */
+    public static String convertDateLong(Long times, String dfType) {
+        String dfPatern = StringUtils.isNotBlank(dfType) ? dfType : MyDateUtils.DATE_FORMAT_DEFAULT;
+        SimpleDateFormat df = new SimpleDateFormat(dfPatern);
+        String dtStr = df.format(new Date(times));
+        return dtStr;
+    }
 }

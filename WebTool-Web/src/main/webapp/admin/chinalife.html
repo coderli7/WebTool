@@ -5,7 +5,7 @@
     <!-- 页面meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>人寿系统工具</title>
+    <title>系统工具</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta
             content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
@@ -182,18 +182,21 @@
 
                                 <thead>
                                 <tr>
-                                    <th>序号</th>
-                                    <th>文件名</th>
-                                    <th>操作</th>
+                                    <th class="text-center">序号</th>
+                                    <th class="text-center">文件名</th>
+                                    <th class="text-center">日期</th>
+                                    <th class="text-center">操作</th>
 
                                 </tr>
                                 </thead>
 
                                 <tbody>
                                 <tr ng-repeat="item  in  tools ">
-                                    <td>{{$index+1}}</td>
-                                    <td>{{item.fileName}}</td>
-                                    <td><a href="../{{item.downLoadPath}}">点我下载</a>&nbsp;&nbsp;&nbsp;&nbsp;<a
+                                    <td class="text-center">{{$index+1}}</td>
+                                    <td class="text-center">{{item.fileName}}</td>
+                                    <td class="text-center">{{item.remark}}</td>
+                                    <td class="text-center"><a
+                                            href="../{{item.downLoadPath}}">下载</a>&nbsp;&nbsp;&nbsp;<a
                                             href="#" ng-click="delTools(item.fileName)">删除</a></td>
                                 </tr>
                                 </tbody>

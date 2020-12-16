@@ -125,4 +125,16 @@ app.controller('imageCaseInfoController', function ($scope, $location,
         return "red";
     };
 
+    $scope.openDetailInNewTab = function (caseid, imgname) {
+
+        console.log(imgname);
+        var newtab = {
+            id: caseid,
+            title: '详情' + caseid,
+            url: 'image.html#?caseId=' + imgname + '&imgName=' + imgname,
+            ptype: 'home'
+        };
+        parent.addTabs(newtab);
+    }
+
 });

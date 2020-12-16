@@ -70,6 +70,7 @@ app.controller('bhChannelinfoController', function ($scope, $controller, $q, bhC
 
     //搜索
     $scope.search = function (page, rows) {
+
         $scope.searching = true;
         var obj = {'startDate': '', 'endDate': ''};
         obj.startDate = document.querySelector("#startDate").value;
@@ -109,10 +110,21 @@ app.controller('bhChannelinfoController', function ($scope, $controller, $q, bhC
         } else if ("3" == newValue) {
             //后天
             myDate = new Date(myDate.getTime() + (2 * 24 * 60 * 60 * 1000));
+        } else if ("4" == newValue) {
+            //后天
+            myDate = new Date(myDate.getTime() + (3 * 24 * 60 * 60 * 1000));
         }
-        var curDt = myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate();
-        $scope.searchEntity.startDate = curDt + ' 00:00:00';
-        $scope.searchEntity.endDate = curDt + ' 23:59:59';
+
+
+        if ("5" == newValue) {
+            //全部
+            $scope.searchEntity.startDate = "";
+            $scope.searchEntity.endDate = "";
+        } else {
+            var curDt = myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate();
+            $scope.searchEntity.startDate = curDt + ' 00:00:00';
+            $scope.searchEntity.endDate = curDt + ' 23:59:59';
+        }
     });
 
 

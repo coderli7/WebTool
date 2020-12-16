@@ -7,6 +7,15 @@
     <meta
             content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
             name="viewport">
+
+
+    <link rel="stylesheet" href="../plugins-tab/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins-tab/dist/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../plugins-tab/dist/css/ionicons.min.css">
+    <link rel="stylesheet" href="../plugins-tab/dist/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins-tab/dist/css/skins/all-skins.min.css">
+
+
     <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="../plugins/adminLTE/css/font-awesome.css">
@@ -21,6 +30,11 @@
     <script type="text/javascript" src="../plugins/angularjs/angular.min.js">
 
     </script>
+
+    <script src="../plugins/ie9/html5shiv.min.js"></script>
+    <script src="../plugins/ie9/respond.min.js"></script>
+
+
     <!-- 分页组件开始 -->
     <script src="../plugins/angularjs/pagination.js"></script>
     <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
@@ -39,6 +53,7 @@
             src="../js/controller/imageCaseInfoController.js">
 
     </script>
+
 
 </head>
 <body class="hold-transition skin-red sidebar-mini" ng-app="pyg"
@@ -223,9 +238,24 @@
                                             alt="" src="{{img.info1}}" width="60px" height="60px"></th>
                                     <th class="text-center" style="font-weight: normal;">{{img.info3}}</th>
                                     <th class="text-center" style="font-weight: normal;">{{img.info4}}</th>
-                                    <th class="text-center" style="font-weight: normal;"><a
-                                            href="image.html#?caseId={{entity.imageCaseInfo.caseid}}&imgName={{img.imgname}}"
-                                            target="_blank">查看详情</a></th>
+                                    <th class="text-center" style="font-weight: normal;">
+
+
+                                        <!--<a-->
+                                        <!--href="image.html#?caseId={{entity.imageCaseInfo.caseid}}&imgName={{img.imgname}}"-->
+                                        <!--target="_blank">查看详情</a>-->
+
+
+                                        <a href="#"
+                                           ng-click="openDetailInNewTab(entity.imageCaseInfo.caseid,img.imgname)">查看详情</a>
+
+
+                                        <!--<a class="nav-link"-->
+                                        <!--onclick="parent.addTabs({id:'0224',title: '统计信息查询',url: 'statistics.html', ptype: 'home'});">-->
+                                        <!--查看</a>-->
+
+
+                                    </th>
                                 </tr>
                                 </tbody>
                             </table>
@@ -359,5 +389,14 @@
         </div>
     </div>
 </div>
+
+<!-- AdminLTE App -->
+<script src="../plugins-tab/dist/js/app.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../plugins-tab/dist/js/demo.js"></script>
+<!--tabs-->
+<script src="../plugins-tab/dist/js/app_iframe.js"></script>
+
+
 </body>
 </html>

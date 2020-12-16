@@ -98,52 +98,52 @@
                         <label for="selectDt" style="font-weight: normal">快捷查询:</label>
                         <select id="selectDt" class="form-control select2"
                                 ng-model="searchEntity.quickDateRange"
-                                ng-options="item.id as item.name for item in [{id:'0',name:'昨天'},{id:'1',name:'今天'},{id:'2',name:'明天'},{id:'3',name:'后天'},{id:'4',name:'大后天'}]"
+                                ng-options="item.id as item.name for item in [{id:'0',name:'昨天'},{id:'1',name:'今天'},{id:'2',name:'明天'},{id:'3',name:'后天'},{id:'4',name:'大后天'},{id:'5',name:'全部'}]"
                         >
                         </select>
 
                     </div>
-                    <div class="form-group col-sm-3">
-                        <label for="input001" style="font-weight: normal">多选:</label>
-                        {{entity.brandIds}}
-                        <input id="input001" select2 select2-model="entity.brandIds" config="brandList" multiple
-                               placeholder="选择品牌（可多选）"
-                               class="form-control" type="text"/>
-                        </select>
-                    </div>
-                    <div class="form-group col-sm-3">
-                        <label style="font-weight: normal">是否禁用缓存:</label>
-                        <div style="padding: 6px 2px;">
-                            <label class=" radio-inline">
-                                <input type="radio" name="gender" id="optionsRadios3" value="option1" checked>
-                                是
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="gender" id="optionsRadios4" value="option2"> 否
-                            </label>
-                        </div>
-                        </select>
-                    </div>
+                    <!--<div class="form-group col-sm-3">-->
+                    <!--<label for="input001" style="font-weight: normal">多选:</label>-->
+                    <!--{{entity.brandIds}}-->
+                    <!--<input id="input001" select2 select2-model="entity.brandIds" config="brandList" multiple-->
+                    <!--placeholder="选择品牌（可多选）"-->
+                    <!--class="form-control" type="text"/>-->
+                    <!--</select>-->
+                    <!--</div>-->
+                    <!--<div class="form-group col-sm-3">-->
+                    <!--<label style="font-weight: normal">是否禁用缓存:</label>-->
+                    <!--<div style="padding: 6px 2px;">-->
+                    <!--<label class=" radio-inline">-->
+                    <!--<input type="radio" name="gender" id="optionsRadios3" value="option1" checked>-->
+                    <!--是-->
+                    <!--</label>-->
+                    <!--<label class="radio-inline">-->
+                    <!--<input type="radio" name="gender" id="optionsRadios4" value="option2"> 否-->
+                    <!--</label>-->
+                    <!--</div>-->
+                    <!--</select>-->
+                    <!--</div>-->
+                    <!--<div class="form-group col-sm-3">-->
+                    <!--<label style="font-weight: normal">期限:</label>-->
+                    <!--<div style="padding: 6px 2px;">-->
 
-                    <div class="form-group col-sm-3">
-                        <label style="font-weight: normal">期限:</label>
-                        <div style="padding: 6px 2px;">
 
+                    <!--<label class="checkbox-inline">-->
+                    <!--<input type="checkbox" id="inlineCheckbox3" value="option3"> 一天内-->
+                    <!--</label>-->
 
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox3" value="option3"> 一天内
-                            </label>
+                    <!--<label class="checkbox-inline">-->
+                    <!--<input type="checkbox" id="inlineCheckbox4" value="option3"> 三天内-->
+                    <!--</label>-->
 
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox4" value="option3"> 三天内
-                            </label>
+                    <!--<label class="checkbox-inline">-->
+                    <!--<input type="checkbox" id="inlineCheckbox5" value="option3"> 五天内-->
+                    <!--</label>-->
+                    <!--</div>-->
+                    <!--</select>-->
+                    <!--</div>-->
 
-                            <label class="checkbox-inline">
-                                <input type="checkbox" id="inlineCheckbox5" value="option3"> 五天内
-                            </label>
-                        </div>
-                        </select>
-                    </div>
                 </div>
                 <div class="row" style="width: 90%">
                     <div class="form-group col-sm-3">
@@ -282,6 +282,10 @@
         </div>
     </div>
     <!-- 编辑窗口 -->
+
+
+
+
 
 </div>
 
