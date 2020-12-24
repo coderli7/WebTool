@@ -1,4 +1,4 @@
-app.controller('searchController', function ($scope, $location, $controller,
+app.controller('searchController', function ($scope, $location, $controller, $timeout,
                                              searchService, fileService) {
 
     // 继承
@@ -94,14 +94,54 @@ app.controller('searchController', function ($scope, $location, $controller,
 
     }
 
-
     $scope.tools = [];
     //获取所有工具
     $scope.getTools = function () {
+        console.log("执行controller");
         fileService.getTools().success(function (response) {
+            console.log("查詢到結果")
             $scope.tools = response;
         });
     }
+
+    $scope.loadDt = function () {
+        console.log("初始化加載dt")
+        $('#example2').DataTable({
+            "paging": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "autoWidth": false,
+            retrieve: true,
+            destroy: true
+        });
+    }
+
+    $scope.dtSign = false;
+
+//controller里对应的处理函数
+    $scope.renderFinish = function () {
+        console.log('repeat渲染开始:' + new Date().getSeconds())
+        setTimeout(function () {
+            $('#example2').DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                /* "ordering": true,*/
+                /* "ordering": true,
+                 columnDefs: [{
+                     orderable: false,
+                     targets: 0
+                 }],*/
+                "info": false,
+                "autoWidth": false,
+                retrieve: true,
+                destroy: true
+            });
+        }, 200);
+    }
+
 
     //删除工具
     $scope.delTools = function (toolName) {
@@ -124,13 +164,28 @@ app.controller('searchController', function ($scope, $location, $controller,
                 fileService.delTools(toolName).success(function (response) {
                     console.log(response);
                     if (response.code == "0") {
-                        $scope.getTools();
+                        window.location.reload();
+                        // $scope.getTools();
                     } else {
                         alert("删除失败!" + response.message);
                     }
                 });
             } else {
                 alert("删除口令错误!");
+            }
+        }
+    }
+
+})
+
+
+app.directive('repeatFinish', function () {
+    return {
+        link: function (scope, element, attr) {
+            console.log(scope.$index)
+            if (scope.$last == true) {
+                console.log('ng-repeat执行完毕')
+                scope.$eval(attr.repeatFinish)
             }
         }
     }

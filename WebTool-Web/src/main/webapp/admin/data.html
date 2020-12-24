@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 2 | Data Tables</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../plugins-tab/dist/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="../plugins-tab/dist/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet"
+          href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+
+
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../plugins/angularjs1.4.6/angular.min146.js">
+
+    </script>
+    <!-- 分页组件开始 -->
+    <script src="../plugins/angularjs/pagination.js"></script>
+
+    <script type="text/javascript" src="../js/base.js"></script>
+
+    <script type="text/javascript" src="../js/service/fileService.js"></script>
+
+
+    <script type="text/javascript" src="../js/base_pagination.js">
+
+    </script>
+
+
+    <script type="text/javascript" src="../js/service/searchService.js">
+
+    </script>
+
+    <script type="text/javascript" src="../js/service/fileService.js"></script>
+
+
+    <script type="text/javascript" src="../js/controller/baseController.js">
+
+
+    </script>
+
+
+    <script type="text/javascript"
+            src="../js/controller/chinaLifeController.js">
+    </script>
+
+    <![endif]-->
+</head>
+<body class="hold-transition skin-blue sidebar-mini" ng-app="pyg"
+      ng-controller="searchController" ng-init="getTools();">
+<div class="wrapper">
+
+
+    <button ng-click="loadDt()">初始化</button>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Hover Data Table</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example2" class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th class="text-center" style="width: 10%">序号</th>
+                                <th class="text-center" style="width: 80px">文件名</th>
+                                <th class="text-center">创建时间</th>
+                                <th class="text-center">操作</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr ng-repeat="item  in  tools " repeat-finish="renderFinish()">
+                                <td class="text-center">{{$index+1}}</td>
+                                <td class="text-center">{{item.fileName}}</td>
+                                <td class="text-center">{{item.remark}}</td>
+                                <td class="text-center">{{item.remark}}</td>
+
+                            </tr>
+                            <!--<tr>
+                                <td>Other browsers</td>
+                                <td>All others</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>U</td>
+                            </tr>-->
+                            </tbody>
+                            <!-- <tfoot>
+                             <tr>
+                                 <th>Rendering engine</th>
+                                 <th>Browser</th>
+                                 <th>Platform(s)</th>
+                                 <th>Engine version</th>
+                                 <th>CSS grade</th>
+                             </tr>
+                             </tfoot>-->
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- DataTables -->
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../plugins-tab/dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../plugins-tab/dist/js/demo.js"></script>
+<!-- page script -->
+</body>
+</html>

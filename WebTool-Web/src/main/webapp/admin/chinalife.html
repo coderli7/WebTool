@@ -15,6 +15,18 @@
     <link rel="stylesheet"
           href="../plugins/adminLTE/css/skins/_all-skins.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+
+
+    <!-- &lt;!&ndash; Font Awesome &ndash;&gt;
+     <link rel="stylesheet" href="../plugins-tab/dist/css/font-awesome.min.css">
+     &lt;!&ndash; Ionicons &ndash;&gt;
+     <link rel="stylesheet" href="../plugins-tab/dist/css/ionicons.min.css">-->
+    <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+
+
+    <!-- 分页组件结束 -->
+
     <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 
@@ -23,8 +35,6 @@
     </script>
     <!-- 分页组件开始 -->
     <script src="../plugins/angularjs/pagination.js"></script>
-    <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
-    <!-- 分页组件结束 -->
 
     <script type="text/javascript" src="../js/base.js"></script>
 
@@ -175,10 +185,10 @@
                         </div>
                     </div>
                     <div class="tab-pane " id="other">
+                        <div class="box-body">
+                            <table id="example2" class="table table-hover">
 
-
-                        <div class="box-body table-responsive no-padding">
-                            <table id="selectTable" class="table table-hover">
+                                <!--id="selectTable"-->
 
                                 <thead>
                                 <tr>
@@ -191,7 +201,7 @@
                                 </thead>
 
                                 <tbody>
-                                <tr ng-repeat="item  in  tools ">
+                                <tr ng-repeat="item  in  tools " repeat-finish="renderFinish()">
                                     <td class="text-center">{{$index+1}}</td>
                                     <td class="text-center">{{item.fileName}}</td>
                                     <td class="text-center">{{item.remark}}</td>
@@ -202,12 +212,26 @@
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+
+<!-- DataTables -->
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="../plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="../plugins-tab/dist/js/app.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../plugins-tab/dist/js/demo.js"></script>
+
+
 </body>
 </html>
