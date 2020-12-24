@@ -98,7 +98,12 @@ app.controller('testController', function ($scope, $controller, $interval, users
     }, 2000);
 
 
-    $scope.brandList = {data: [{id: 1, text: '联想'}, {id: 2, text: '华为'}, {id: 3, text: '小米'}]};
+    $scope.brandList = {
+        data: [{id: 1, text: '联想'}, {id: 2, text: '华为'}, {id: 3, text: '小米'}, {
+            id: 4,
+            text: '联想1'
+        }, {id: 5, text: '魅族'}, {id: 6, text: '摩托罗拉'}]
+    };
 
 
 });
