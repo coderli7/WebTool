@@ -70,41 +70,45 @@
         <hr/>
 
 
-        <!-- <select name="test" id="test">
-             <option value="1">王者荣耀|wangzherongyao|wzry</option>
-             <option value="2">部落冲突|buluochongtu|blct</option>
-             <option value="3">枪战王者|qiangzhanwangzhe|qzwz</option>
-             <option value="4">永恒纪元|yonghengjiyuan|yhjy</option>
-             <option value="5">英魂之刃|yinghunzhiren|yhzr</option>
-             <option value="6">皇室战争|huangshizhanzheng|hszz</option>
-             <option value="7">一起来飞车|yiqilaifeiche|yqlfc</option>
-             <option value="8">海岛奇兵|haidaoqibing|hdqb</option>
-             <option value="9">阴阳师|yinyangshi|yys</option>
-             <option value="10">热血江湖|rexuejianghu|rxjh</option>
-         </select>
- -->
+        <select name="test" id="test">
+
+            <option ng-repeat="entity in brandList.data" value="entity.id">{{entity.text}}</option>
+
+            <!--
+                        <option value="1">王者荣耀|wangzherongyao|wzry</option>
+            -->
+            <!--          <option value="2">部落冲突|buluochongtu|blct</option>
+                      <option value="3">枪战王者|qiangzhanwangzhe|qzwz</option>
+                      <option value="4">永恒纪元|yonghengjiyuan|yhjy</option>
+                      <option value="5">英魂之刃|yinghunzhiren|yhzr</option>
+                      <option value="6">皇室战争|huangshizhanzheng|hszz</option>
+                      <option value="7">一起来飞车|yiqilaifeiche|yqlfc</option>
+                      <option value="8">海岛奇兵|haidaoqibing|hdqb</option>
+                      <option value="9">阴阳师|yinyangshi|yys</option>
+                      <option value="10">热血江湖|rexuejianghu|rxjh</option>-->
+        </select>
     </div>
 </div>
 
 
-<!--<script>
+<script>
     $('#test').select2({
         width: 300,
         allowClear: true,
         language: "zh-CN",
-        formatResult: function (item) {
-            var str = item.text;
-            var idx = str.indexOf('|');
-            return str.substring(0, idx);
-        },
-        formatSelection: function (item) {
-            var str = item.text;
-            var idx = str.indexOf('|');
-            return str.substring(0, idx);
-        },
-        placeholder: '&#45;&#45;请选择&#45;&#45;',
+        /*        formatResult: function (item) {
+                    var str = item.text;
+                    var idx = str.indexOf('|');
+                    return str.substring(0, idx);
+                },
+                formatSelection: function (item) {
+                    var str = item.text;
+                    var idx = str.indexOf('|');
+                    return str.substring(0, idx);
+                },*/
+        placeholder: '--请选择--',
     });
-</script>-->
+</script>
 
 
 </body>
