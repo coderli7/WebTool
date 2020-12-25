@@ -27,6 +27,17 @@ app.controller('bhChannelinfoController', function ($scope, $controller, $q, bhC
         bhChannelinfoService.findOne(id).success(
             function (response) {
                 $scope.entity = response;
+                if ($scope.entity.remark != null && $scope.entity.remark != '') {
+                    console.log("格式化展示");
+                    var channelInfo = $scope.entity.remark;
+                    if (channelInfo != null && channelInfo != '') {
+                        console.log("渠道信息不为空");
+                        var newChannelInfo = channelInfo.replace(/\\/g, '');
+                        newChannelInfo = newChannelInfo.replace('"[', '').replace(']"', '');
+                        $scope.entity.remark = newChannelInfo;
+                    }
+                    $scope.entity.remark = JSON.stringify(JSON.parse($scope.entity.remark), null, 4);
+                }
             }
         );
     }
