@@ -371,7 +371,9 @@
                         </div>
 
                         <div class="tab-pane" id="org_data" style="word-wrap: break-word">
-                            {{entity.imageCaseInfo.result}}
+                                   <textarea class="form-control" rows="9" ng-model="entity.imageCaseInfo.result"
+                                             style="resize:vertical" readonly="readonly"></textarea>
+                            <!--{{entity.imageCaseInfo.result}}-->
                         </div>
 
                     </div>

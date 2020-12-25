@@ -25,6 +25,10 @@ app.controller('imageCaseInfoController', function ($scope, $location,
     $scope.findOne = function (id) {
         imageCaseInfoService.findOne(id).success(function (response) {
             $scope.entity = response;
+            if ($scope.entity != null && $scope.entity.imageCaseInfo != null && $scope.entity.imageCaseInfo.result != null && $scope.entity.imageCaseInfo.result != '') {
+                console.log("结果不为空");
+                $scope.entity.imageCaseInfo.result = JSON.stringify(JSON.parse($scope.entity.imageCaseInfo.result), null, 4);
+            }
         });
     }
 
