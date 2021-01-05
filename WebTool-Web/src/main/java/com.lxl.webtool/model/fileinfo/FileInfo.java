@@ -24,6 +24,16 @@ public class FileInfo implements Serializable {
 
     private String remark;
 
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    private String size;
+
     public String getRemark() {
         return remark;
     }

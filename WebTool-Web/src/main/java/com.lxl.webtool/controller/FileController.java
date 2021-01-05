@@ -229,13 +229,26 @@ public class FileController {
                         files) {
                     if (fileItem.isFile()) {
                         String curFileName = fileItem.getName();
-
                         FileInfo curFileInfo = new FileInfo();
                         curFileInfo.setFileName(curFileName);
                         curFileInfo.setDownLoadPath(String.format("%s/%s", "tools", curFileName));
                         fileItem.lastModified();
                         String dtStr = MyDateUtils.convertDateLong(fileItem.lastModified(), null);
                         curFileInfo.setRemark(dtStr);
+                        String fileSize = "";
+
+                        // Long  size = fileItem.length();
+                        double size = new Long(fileItem.length()).doubleValue();
+                        if (size > 0) {
+                            if (size > 1024 * 1024 * 1024) {
+                                fileSize = String.format("%.2f", (size / (1024 * 1024 * 1024))) + "G";
+                            } else if (size > 1024 * 1024) {
+                                fileSize = String.format("%.2f", (size / (1024 * 1024))) + "M";
+                            } else {
+                                fileSize = String.format("%.2f", (size / (1024))) + "K";
+                            }
+                        }
+                        curFileInfo.setSize(fileSize);
                         fileInfoList.add(curFileInfo);
                     }
                 }
