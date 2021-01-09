@@ -181,4 +181,15 @@ public class MyDateUtils {
         String dtStr = df.format(new Date(times));
         return dtStr;
     }
+
+    /**
+     * 获取当前时间戳，不包含毫秒
+     *
+     * @return
+     */
+    public static Long getCurTimespan() {
+        return System.currentTimeMillis() / 1000;
+    }
+
+
 }

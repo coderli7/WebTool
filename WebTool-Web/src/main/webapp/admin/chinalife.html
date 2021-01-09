@@ -192,11 +192,11 @@
 
                                 <thead>
                                 <tr>
-                                    <th class="text-center">序号</th>
-                                    <th class="text-center">文件名</th>
-                                    <th class="text-center">大小</th>
-                                    <th class="text-center">日期</th>
-                                    <th class="text-center">操作</th>
+                                    <th class="text-center" style="width: 7%;">序号</th>
+                                    <th class="text-center" style="width: 30%;">文件名</th>
+                                    <th class="text-center" style="width: 15%;">日期</th>
+                                    <th class="text-center" style="width: 15%;">大小</th>
+                                    <th class="text-center" style="width: 20%;">操作</th>
 
                                 </tr>
                                 </thead>
@@ -205,8 +205,8 @@
                                 <tr ng-repeat="item  in  tools " repeat-finish="renderFinish()">
                                     <td class="text-center">{{$index+1}}</td>
                                     <td class="text-center">{{item.fileName}}</td>
-                                    <td class="text-center">{{item.size}}</td>
                                     <td class="text-center">{{item.remark}}</td>
+                                    <td class="text-center">{{item.size}}</td>
                                     <td class="text-center"><a
                                             href="../{{item.downLoadPath}}">下载</a>&nbsp;&nbsp;&nbsp;<a
                                             href="#" ng-click="delTools(item.fileName)">删除</a></td>

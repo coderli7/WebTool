@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lxl.webtool.dao.mapper.TbBhNoteMapper" >
+  <resultMap id="BaseResultMap" type="com.lxl.webtool.dao.pojo.TbBhNote" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="createuser" property="createuser" jdbcType="VARCHAR" />
+    <result column="createdate" property="createdate" jdbcType="BIGINT" />
+    <result column="updatedate" property="updatedate" jdbcType="BIGINT" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, createuser, createdate, updatedate, content
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lxl.webtool.dao.pojo.TbBhNoteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_bh_note
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_bh_note
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_bh_note
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lxl.webtool.dao.pojo.TbBhNoteExample" >
+    delete from tb_bh_note
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lxl.webtool.dao.pojo.TbBhNote" >
+    insert into tb_bh_note (id, createuser, createdate, 
+      updatedate, content)
+    values (#{id,jdbcType=INTEGER}, #{createuser,jdbcType=VARCHAR}, #{createdate,jdbcType=BIGINT}, 
+      #{updatedate,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lxl.webtool.dao.pojo.TbBhNote" >
+    insert into tb_bh_note
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="createuser != null" >
+        createuser,
+      </if>
+      <if test="createdate != null" >
+        createdate,
+      </if>
+      <if test="updatedate != null" >
+        updatedate,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=BIGINT},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lxl.webtool.dao.pojo.TbBhNoteExample" resultType="java.lang.Integer" >
+    select count(*) from tb_bh_note
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_bh_note
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.createuser != null" >
+        createuser = #{record.createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null" >
+        createdate = #{record.createdate,jdbcType=BIGINT},
+      </if>
+      <if test="record.updatedate != null" >
+        updatedate = #{record.updatedate,jdbcType=BIGINT},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_bh_note
+    set id = #{record.id,jdbcType=INTEGER},
+      createuser = #{record.createuser,jdbcType=VARCHAR},
+      createdate = #{record.createdate,jdbcType=BIGINT},
+      updatedate = #{record.updatedate,jdbcType=BIGINT},
+      content = #{record.content,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lxl.webtool.dao.pojo.TbBhNote" >
+    update tb_bh_note
+    <set >
+      <if test="createuser != null" >
+        createuser = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        createdate = #{createdate,jdbcType=BIGINT},
+      </if>
+      <if test="updatedate != null" >
+        updatedate = #{updatedate,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lxl.webtool.dao.pojo.TbBhNote" >
+    update tb_bh_note
+    set createuser = #{createuser,jdbcType=VARCHAR},
+      createdate = #{createdate,jdbcType=BIGINT},
+      updatedate = #{updatedate,jdbcType=BIGINT},
+      content = #{content,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

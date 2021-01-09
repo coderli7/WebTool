@@ -66,11 +66,8 @@ public class MyCommonUtils {
      * @return
      */
     public static String getCurUser() {
-
-
         Object obj = SecurityContextHolder.getContext().getAuthentication();
         return SecurityContextHolder.getContext().getAuthentication().getName();
-
     }
 
     /**
