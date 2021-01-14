@@ -11,6 +11,7 @@ import com.lxl.webtool.enums.ResultEnum;
 import com.lxl.webtool.model.BHChannelRemarkInfoRequest;
 import com.lxl.webtool.model.BhLoginInfoRequest;
 import com.lxl.webtool.pojo.BaseResult;
+import com.lxl.webtool.pojo.ChannelInfoResult;
 import com.lxl.webtool.pojo.PageResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,6 +150,7 @@ public class BhChannelinfoServiceImpl implements BhChannelinfoService {
         channelinfo.setLogininfo(cookie);
         channelinfo.setCreatedate(System.currentTimeMillis() / 1000);
         Object loginInfoRequestData = loginInfoRequest.getData();
+        channelinfo.setProxyUrl(loginInfoRequest.getProxyUrl());
         //插入渠道信息
         if (loginInfoRequestData != null) {
             String data = loginInfoRequestData.toString();
@@ -158,6 +160,7 @@ public class BhChannelinfoServiceImpl implements BhChannelinfoService {
 
         try {
             bhChannelinfoMapper.insert(channelinfo);
+            baseResult.setMessage("增加成功");
         } catch (Exception e) {
             e.printStackTrace();
             baseResult.setCode(ResultEnum.Falied.getCode());
@@ -169,8 +172,9 @@ public class BhChannelinfoServiceImpl implements BhChannelinfoService {
     @Override
     public BaseResult getChannelCookie(String channelKey) {
 
-        BaseResult baseResult = new BaseResult();
+        ChannelInfoResult baseResult = new ChannelInfoResult();
         try {
+
             /**
              * 1.根据渠道列表，获取缓存，需要获取最新一条记录
              */
@@ -186,29 +190,23 @@ public class BhChannelinfoServiceImpl implements BhChannelinfoService {
                 criteria.andCreatedateGreaterThanOrEqualTo(curDayBeginTime.intValue());
             }
 
-
+            example.setOrderByClause(" id  desc limit 1");
             List<TbBhChannelinfo> channelinfos = bhChannelinfoMapper.selectByExample(example);
             if (channelinfos.size() > 0) {
-                /**
-                 * 获取到最新的一条
-                 */
-                // channelinfos.sort(Comparator.comparing(TbBhChannelinfo::getCreatedate).reversed());
-                // Collections.sort(channelinfos, new Comparator<TbBhChannelinfo>() {
-                //     @Override
-                //     public int compare(TbBhChannelinfo o1, TbBhChannelinfo o2) {
-                //         return o1.getCreatedate().compareTo(o2.getCreatedate());
-                //     }
-                // });
-
                 TbBhChannelinfo channelinfo = channelinfos.get(channelinfos.size() - 1);
                 baseResult.setData(channelinfo.getLogininfo());
+                baseResult.setProxyUrl(channelinfo.getProxyUrl());
+                // BHChannelInfoDataResponse channelInfoDataResponse = new BHChannelInfoDataResponse();
+                // channelInfoDataResponse.setCookie(channelinfo.getLogininfo());
+                // channelInfoDataResponse.setProxyUrl(channelinfo.getProxyUrl());
+                // baseResult.setData(channelInfoDataResponse);
             }
+            //返回data结构,需使用model
         } catch (Exception e) {
             e.printStackTrace();
             baseResult.setCode(ResultEnum.Falied.getCode());
             baseResult.setMessage(ResultEnum.Falied.getMessage());
         }
-
         return baseResult;
     }
 

@@ -8,6 +8,7 @@
         <result column="remark" property="remark" jdbcType="VARCHAR"/>
         <result column="createdate" property="createdate" jdbcType="INTEGER"/>
         <result column="updatedate" property="updatedate" jdbcType="INTEGER"/>
+        <result column="proxyUrl" property="proxyUrl" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -100,7 +101,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    id, channelkey, logininfo, remark, createdate, updatedate
+    id, channelkey, logininfo, remark, createdate, updatedate,proxyUrl
   </sql>
     <select id="selectByExample" resultMap="BaseResultMap"
             parameterType="com.lxl.webtool.dao.pojo.TbBhChannelinfoExample">
@@ -153,10 +154,10 @@
     </delete>
     <insert id="insert" parameterType="com.lxl.webtool.dao.pojo.TbBhChannelinfo">
     insert into tb_bh_channelinfo (id, channelkey, logininfo, 
-      remark, createdate, updatedate
+      remark,proxyUrl, createdate, updatedate
       )
     values (#{id,jdbcType=INTEGER}, #{channelkey,jdbcType=VARCHAR}, #{logininfo,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR}, #{createdate,jdbcType=INTEGER}, #{updatedate,jdbcType=INTEGER}
+      #{remark,jdbcType=VARCHAR},#{proxyUrl,jdbcType=VARCHAR}, #{createdate,jdbcType=INTEGER}, #{updatedate,jdbcType=INTEGER}
       )
   </insert>
     <insert id="insertSelective" parameterType="com.lxl.webtool.dao.pojo.TbBhChannelinfo">
@@ -224,6 +225,9 @@
             <if test="record.remark != null">
                 remark = #{record.remark,jdbcType=VARCHAR},
             </if>
+            <if test="record.proxyUrl != null">
+                remark = #{record.proxyUrl,jdbcType=VARCHAR},
+            </if>
             <if test="record.createdate != null">
                 createdate = #{record.createdate,jdbcType=INTEGER},
             </if>
@@ -241,6 +245,7 @@
         channelkey = #{record.channelkey,jdbcType=VARCHAR},
         logininfo = #{record.logininfo,jdbcType=VARCHAR},
         remark = #{record.remark,jdbcType=VARCHAR},
+        proxyUrl = #{record.proxyUrl,jdbcType=VARCHAR},
         createdate = #{record.createdate,jdbcType=INTEGER},
         updatedate = #{record.updatedate,jdbcType=INTEGER}
         <if test="_parameter != null">
@@ -259,6 +264,9 @@
             <if test="remark != null">
                 remark = #{remark,jdbcType=VARCHAR},
             </if>
+            <if test="proxyUrl != null">
+                remark = #{proxyUrl,jdbcType=VARCHAR},
+            </if>
             <if test="createdate != null">
                 createdate = #{createdate,jdbcType=INTEGER},
             </if>
@@ -273,6 +281,7 @@
     set channelkey = #{channelkey,jdbcType=VARCHAR},
       logininfo = #{logininfo,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
+      proxyUrl = #{proxyUrl,jdbcType=VARCHAR},
       createdate = #{createdate,jdbcType=INTEGER},
       updatedate = #{updatedate,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

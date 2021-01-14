@@ -30,6 +30,13 @@
             org.springframework.web.context.request.RequestContextListener
         </listener-class>
     </listener>
+
+
+    <!--<listener>-->
+        <!--<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>-->
+    <!--</listener>-->
+
+
     <!-- 解决post乱码 -->
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>

@@ -1,6 +1,7 @@
 package com.lxl.webtool.dao.pojo;
 
 public class TbBhChannelinfo {
+
     private Integer id;
 
     private String channelkey;
@@ -12,6 +13,16 @@ public class TbBhChannelinfo {
     private Long createdate;
 
     private Long updatedate;
+
+    private String proxyUrl;
+
+    public String getProxyUrl() {
+        return proxyUrl;
+    }
+
+    public void setProxyUrl(String proxyUrl) {
+        this.proxyUrl = proxyUrl;
+    }
 
     public Integer getId() {
         return id;

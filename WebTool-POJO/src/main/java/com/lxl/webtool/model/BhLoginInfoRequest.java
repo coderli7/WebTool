@@ -19,6 +19,8 @@ import java.io.Serializable;
 public class BhLoginInfoRequest implements Serializable {
 
     private String channelKey;
+    private String proxyUrl;
+
     private String cookie;
     private Object data;
 
@@ -28,6 +30,14 @@ public class BhLoginInfoRequest implements Serializable {
 
     public void setChannelKey(String channelKey) {
         this.channelKey = channelKey;
+    }
+
+    public String getProxyUrl() {
+        return proxyUrl;
+    }
+
+    public void setProxyUrl(String proxyUrl) {
+        this.proxyUrl = proxyUrl;
     }
 
     public String getCookie() {
