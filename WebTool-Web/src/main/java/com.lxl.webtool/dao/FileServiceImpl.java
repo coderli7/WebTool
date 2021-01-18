@@ -5,10 +5,15 @@ import com.github.pagehelper.PageHelper;
 import com.lxl.webtool.dao.mapper.TbFileMapper;
 import com.lxl.webtool.dao.pojo.TbFile;
 import com.lxl.webtool.dao.pojo.TbFileExample;
+import com.lxl.webtool.data.VersionData;
+import com.lxl.webtool.pojo.BaseResult;
 import com.lxl.webtool.pojo.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -108,6 +113,46 @@ public class FileServiceImpl implements FileService {
 
         Page<TbFile> page = (Page<TbFile>) fileMapper.selectByExample(example);
         return new PageResult(page.getTotal(), page.getResult());
+    }
+
+    @Override
+    public BaseResult getLatestVersion(String versionType) {
+        BaseResult baseResult = new BaseResult();
+        try {
+            /**
+             * 1.根据版本类型获取最新的版本信息
+             * （包含，名称，版本号，下载路径等信息）
+             */
+            TbFileExample fileExample = new TbFileExample();
+            TbFileExample.Criteria fileExampleCriteria = fileExample.createCriteria();
+            fileExampleCriteria.andRemark1EqualTo(versionType);
+            fileExample.setOrderByClause(" id desc limit 1");
+            List<TbFile> tbFiles = fileMapper.selectByExample(fileExample);
+            //获取最近一条
+            if (tbFiles != null && tbFiles.size() == 1) {
+
+                HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes())).getRequest();
+                String requestURL = request.getRequestURL().toString();
+                String requestRequestURI = request.getRequestURI();
+                String contextPath = request.getContextPath();
+                String baseUrl = String.format("%s%s", requestURL.replace(requestRequestURI, ""), contextPath);
+
+
+                TbFile latestFile = tbFiles.get(0);
+                VersionData versionData = new VersionData();
+                versionData.setFileName(latestFile.getFilename());
+                versionData.setVersionType(latestFile.getRemark1());
+                versionData.setVersionNumber(latestFile.getRemark2());
+                versionData.setDownLoadUrl(String.format("%s/tools/%s", baseUrl, latestFile.getFilename()));
+                baseResult.setData(versionData);
+                baseResult.setMessage("获取成功");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            baseResult.setCode(-1000);
+            baseResult.setMessage("获取失败");
+        }
+        return baseResult;
     }
 
 }

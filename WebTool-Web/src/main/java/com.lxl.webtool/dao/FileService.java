@@ -1,6 +1,7 @@
 package com.lxl.webtool.dao;
 
 import com.lxl.webtool.dao.pojo.TbFile;
+import com.lxl.webtool.pojo.BaseResult;
 import com.lxl.webtool.pojo.PageResult;
 
 import java.util.List;
@@ -64,5 +65,8 @@ public interface FileService {
      * @return
      */
     public PageResult findPage(TbFile file, int pageNum, int pageSize);
+
+    public BaseResult getLatestVersion(String versionType);
+
 
 }

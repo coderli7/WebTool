@@ -49,7 +49,7 @@ public class FileController {
      * @throws IOException
      */
     @RequestMapping("/fileUpload")
-    public Result fileUpload(MultipartFile file, String index, String localStoreSign)
+    public Result fileUpload(MultipartFile file, String index, String localStoreSign, String versionType, String versionNumber)
             throws IOException {
 
         Result uploadResult = new Result();
@@ -77,6 +77,8 @@ public class FileController {
             tbFile.setUsercode("");
             String orgPath = String.format("%s\\%s", filePath, originalFilename);
             tbFile.setFilepath(orgPath);
+            tbFile.setRemark1(versionType);
+            tbFile.setRemark2(versionNumber);
             fileService.add(tbFile);
             uploadResult.setSuccess(true);
 
@@ -108,6 +110,8 @@ public class FileController {
                 String httpPath = String.format("%s/%s", "http://192.168.4.53:8089", orgPath);
                 tbFile.setFilepath(orgPath);
                 tbFile.setHttpfilepath(httpPath);
+                tbFile.setRemark1(versionType);
+                tbFile.setRemark2(versionNumber);
                 fileService.add(tbFile);
                 uploadResult.setSuccess(true);
             } else {
@@ -126,7 +130,6 @@ public class FileController {
     public List<TbFile> findAll() {
         return fileService.findAll();
     }
-
 
     /**
      * 返回全部列表
@@ -289,5 +292,17 @@ public class FileController {
         } finally {
         }
         return delResult;
+    }
+
+
+    /**
+     * 根据版本类型，获取此版本对应的最新版本信息
+     *
+     * @param versionType
+     * @return
+     */
+    @RequestMapping("/getLatestVersion")
+    public BaseResult getLatestVersion(String versionType) {
+        return fileService.getLatestVersion(versionType);
     }
 }

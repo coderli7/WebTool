@@ -1,5 +1,5 @@
 //控制层
-app.controller('fileController', function ($scope, $controller, fileService) {
+app.controller('fileController', function ($scope, $controller, bhVersionService, fileService) {
 
     $controller('baseController', {$scope: $scope});//继承
 
@@ -51,7 +51,6 @@ app.controller('fileController', function ($scope, $controller, fileService) {
         );
     }
 
-
     //批量删除
     $scope.dele = function () {
         //获取选中的复选框
@@ -91,7 +90,9 @@ app.controller('fileController', function ($scope, $controller, fileService) {
                 name: curFile.name,
                 dateTime: Date.now(),
                 uptStatus: '未上传',
-                delStatus: false
+                delStatus: false,
+                versionType: null,
+                versionNumber: null
             };
             $scope.selectEntity.push(curFileInfo);
         }
@@ -117,12 +118,35 @@ app.controller('fileController', function ($scope, $controller, fileService) {
             formdata.append('file', curFile);
             formdata.append("index", i);
             formdata.append("localStoreSign", $scope.localStoreSign);
+            formdata.append("versionType", $scope.selectEntity[i].versionType);
+            formdata.append("versionNumber", $scope.selectEntity[i].versionNumber);
             fileService.uploadFile2(formdata).success(function (response) {
                 //重置状态
-                console.log($scope.selectEntity[response.message]);
                 $scope.selectEntity[response.message].uptStatus = '上传成功!!!';
             });
         }
     }
 
-});	
+
+    //标记选项
+    $scope.verionItemArr = [];
+
+    $scope.initFileUploadPage = function () {
+        bhVersionService.findAll().success(function (response) {
+            // console.log(response.len());
+            let arr = Array.from(response)
+
+            for (let i = 0; i < arr.length; i++) {
+                Object
+                curVerionItem = {
+                    id: arr[i].versionCode,
+                    name: arr[i].versionDesc
+                };
+                $scope.verionItemArr.push(curVerionItem);
+            }
+        });
+        searchEntity = {'status': ''};
+    }
+
+
+});
