@@ -273,9 +273,13 @@
                                 <textarea class="form-control" rows="9" ng-model="entity.logininfo"
                                           style="resize:vertical "></textarea>
                             </div>
-                            <div class="tab-pane " id="remarktab" style="word-wrap: break-word">
-                                 <textarea class="form-control" rows="9" ng-model="entity.remark"
-                                           style="resize:vertical " readonly="readonly"></textarea>
+
+                            <div class="tab-pane " id="remarktab" style="word-wrap: break-word;">
+                                <a href="#" ng-click="showDetailInfo()"> 显示登陆信息</a>
+                                <div style="display: none" id="detailInfo">
+                                <textarea class="form-control" rows="9" ng-model="entity.remark"
+                                          style="resize:vertical " readonly="readonly"></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>

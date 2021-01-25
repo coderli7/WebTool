@@ -160,7 +160,6 @@ app.controller('searchController', function ($scope, $location, $controller, $ti
         var pwd = prompt("请输入删除口令:", "")
         if (pwd != null && pwd != "") {
             if ('91bihu@admin' == pwd) {
-                console.log(toolName);
                 fileService.delTools(toolName).success(function (response) {
                     console.log(response);
                     if (response.code == "0") {
@@ -171,7 +170,7 @@ app.controller('searchController', function ($scope, $location, $controller, $ti
                     }
                 });
             } else {
-                alert("删除口令错误!");
+                alert("口令错误!");
             }
         }
     }

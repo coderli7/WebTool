@@ -65,15 +65,22 @@ app.controller('bhChannelinfoController', function ($scope, $controller, $q, bhC
 
     //批量删除
     $scope.dele = function () {
-        //获取选中的复选框
-        bhChannelinfoService.dele($scope.selectIds).success(
-            function (response) {
-                if (response.success) {
-                    $scope.reloadList();//刷新列表
-                    $scope.selectIds = [];
-                }
+        var pwd = prompt("请输入删除口令:", "")
+        if (pwd != null && pwd != "") {
+            if ('91bihu@admin' == pwd) {
+                //获取选中的复选框
+                bhChannelinfoService.dele($scope.selectIds).success(
+                    function (response) {
+                        if (response.success) {
+                            $scope.reloadList();//刷新列表
+                            $scope.selectIds = [];
+                        }
+                    }
+                );
+            } else {
+                alert("口令错误!");
             }
-        );
+        }
     }
 
     $scope.searchEntity = {};//定义搜索对象
@@ -140,6 +147,21 @@ app.controller('bhChannelinfoController', function ($scope, $controller, $q, bhC
 
 
     $scope.brandList = {data: [{id: 1, text: '联想'}, {id: 2, text: '华为'}, {id: 3, text: '小米'}]};
+
+
+    //展示加密信息
+    $scope.showDetailInfo = function () {
+        var pwd = prompt("请输入口令:", "")
+        if (pwd != null && pwd != "") {
+            if ('91bihu@admin' == pwd) {
+                // $("#demo").attr("style","display:none;");//隐藏div
+                // $("#demo").attr("style","display:block;");//显示div
+                $("#detailInfo").attr("style", "block")
+            } else {
+                alert("口令错误!");
+            }
+        }
+    }
 
 
 });
