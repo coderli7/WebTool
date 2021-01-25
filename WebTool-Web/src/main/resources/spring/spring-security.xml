@@ -33,6 +33,7 @@
     <http pattern="/tools/**" security="none"></http>
     <http pattern="/file/**" security="none"></http>
     <http pattern="/admin/chinalife.html" security="none"></http>
+    <http pattern="/admin/channel.html" security="none"></http>
     <http pattern="/admin/fileUpload.html" security="none"></http>
     <http pattern="/admin/test*.html" security="none"></http>
 
