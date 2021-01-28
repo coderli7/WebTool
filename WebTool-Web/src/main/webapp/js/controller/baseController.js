@@ -180,7 +180,6 @@ app
                 }
             }
 
-
             /**
              * 转化为本地时间
              */
@@ -194,4 +193,43 @@ app
                     return result;
                 }
             }
+
+
+            //显示loading窗口
+            $scope.showLoadingDialog = function () {
+                var html = ' <div class="loading">';
+                html += '<div class="loading-body">';
+                html += '<div class="loading-img">';
+                html += '<img class="img-responsive" src="../img/loading.gif" />';
+                html += '</div>';
+                html += '<div class="loading-text">';
+                html += '处理中...';
+                html += '</div>';
+                html += '</div>';
+                html += '</div>';
+                $('body').append(html);
+            }
+
+            //移除loading窗口
+            $scope.hideLoadingDialog = function () {
+                $('.loading').remove();
+            }
+
+            $scope.isNullOrEmptyOrUndefined = function (obj) {
+                if (obj == null) {
+                    return true;
+                }
+                if (obj == undefined) {
+                    return true;
+                }
+                if (obj == '') {
+                    return true;
+                }
+                if (obj == ' ') {
+                    return true;
+                }
+
+            }
+
+
         });

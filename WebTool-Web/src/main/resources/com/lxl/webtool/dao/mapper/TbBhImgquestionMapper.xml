@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lxl.webtool.dao.mapper.TbBhImgquestionMapper" >
+  <resultMap id="BaseResultMap" type="com.lxl.webtool.dao.pojo.TbBhImgquestion" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="channelkey" property="channelkey" jdbcType="VARCHAR" />
+    <result column="guid" property="guid" jdbcType="VARCHAR" />
+    <result column="imgdata" property="imgdata" jdbcType="VARCHAR" />
+    <result column="imgurl" property="imgurl" jdbcType="VARCHAR" />
+    <result column="imganswer" property="imganswer" jdbcType="VARCHAR" />
+    <result column="imganswerstatus" property="imganswerstatus" jdbcType="VARCHAR" />
+    <result column="imgoperatestatus" property="imgoperatestatus" jdbcType="VARCHAR" />
+    <result column="imgcreatedate" property="imgcreatedate" jdbcType="BIGINT" />
+    <result column="imgupdatedate" property="imgupdatedate" jdbcType="BIGINT" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, channelkey, guid, imgdata, imgurl, imganswer, imganswerstatus, imgoperatestatus, 
+    imgcreatedate, imgupdatedate, remark1, remark2, remark3, remark4
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lxl.webtool.dao.pojo.TbBhImgquestionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_bh_imgquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_bh_imgquestion
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_bh_imgquestion
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lxl.webtool.dao.pojo.TbBhImgquestionExample" >
+    delete from tb_bh_imgquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lxl.webtool.dao.pojo.TbBhImgquestion" >
+    insert into tb_bh_imgquestion (id, channelkey, guid, 
+      imgdata, imgurl, imganswer, 
+      imganswerstatus, imgoperatestatus, imgcreatedate, 
+      imgupdatedate, remark1, remark2, 
+      remark3, remark4)
+    values (#{id,jdbcType=INTEGER}, #{channelkey,jdbcType=VARCHAR}, #{guid,jdbcType=VARCHAR}, 
+      #{imgdata,jdbcType=VARCHAR}, #{imgurl,jdbcType=VARCHAR}, #{imganswer,jdbcType=VARCHAR}, 
+      #{imganswerstatus,jdbcType=VARCHAR}, #{imgoperatestatus,jdbcType=VARCHAR}, #{imgcreatedate,jdbcType=BIGINT}, 
+      #{imgupdatedate,jdbcType=BIGINT}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lxl.webtool.dao.pojo.TbBhImgquestion" >
+    insert into tb_bh_imgquestion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="channelkey != null" >
+        channelkey,
+      </if>
+      <if test="guid != null" >
+        guid,
+      </if>
+      <if test="imgdata != null" >
+        imgdata,
+      </if>
+      <if test="imgurl != null" >
+        imgurl,
+      </if>
+      <if test="imganswer != null" >
+        imganswer,
+      </if>
+      <if test="imganswerstatus != null" >
+        imganswerstatus,
+      </if>
+      <if test="imgoperatestatus != null" >
+        imgoperatestatus,
+      </if>
+      <if test="imgcreatedate != null" >
+        imgcreatedate,
+      </if>
+      <if test="imgupdatedate != null" >
+        imgupdatedate,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="channelkey != null" >
+        #{channelkey,jdbcType=VARCHAR},
+      </if>
+      <if test="guid != null" >
+        #{guid,jdbcType=VARCHAR},
+      </if>
+      <if test="imgdata != null" >
+        #{imgdata,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null" >
+        #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="imganswer != null" >
+        #{imganswer,jdbcType=VARCHAR},
+      </if>
+      <if test="imganswerstatus != null" >
+        #{imganswerstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="imgoperatestatus != null" >
+        #{imgoperatestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="imgcreatedate != null" >
+        #{imgcreatedate,jdbcType=BIGINT},
+      </if>
+      <if test="imgupdatedate != null" >
+        #{imgupdatedate,jdbcType=BIGINT},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lxl.webtool.dao.pojo.TbBhImgquestionExample" resultType="java.lang.Integer" >
+    select count(*) from tb_bh_imgquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_bh_imgquestion
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.channelkey != null" >
+        channelkey = #{record.channelkey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guid != null" >
+        guid = #{record.guid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgdata != null" >
+        imgdata = #{record.imgdata,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgurl != null" >
+        imgurl = #{record.imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imganswer != null" >
+        imganswer = #{record.imganswer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imganswerstatus != null" >
+        imganswerstatus = #{record.imganswerstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgoperatestatus != null" >
+        imgoperatestatus = #{record.imgoperatestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgcreatedate != null" >
+        imgcreatedate = #{record.imgcreatedate,jdbcType=BIGINT},
+      </if>
+      <if test="record.imgupdatedate != null" >
+        imgupdatedate = #{record.imgupdatedate,jdbcType=BIGINT},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark3 != null" >
+        remark3 = #{record.remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark4 != null" >
+        remark4 = #{record.remark4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_bh_imgquestion
+    set id = #{record.id,jdbcType=INTEGER},
+      channelkey = #{record.channelkey,jdbcType=VARCHAR},
+      guid = #{record.guid,jdbcType=VARCHAR},
+      imgdata = #{record.imgdata,jdbcType=VARCHAR},
+      imgurl = #{record.imgurl,jdbcType=VARCHAR},
+      imganswer = #{record.imganswer,jdbcType=VARCHAR},
+      imganswerstatus = #{record.imganswerstatus,jdbcType=VARCHAR},
+      imgoperatestatus = #{record.imgoperatestatus,jdbcType=VARCHAR},
+      imgcreatedate = #{record.imgcreatedate,jdbcType=BIGINT},
+      imgupdatedate = #{record.imgupdatedate,jdbcType=BIGINT},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR},
+      remark3 = #{record.remark3,jdbcType=VARCHAR},
+      remark4 = #{record.remark4,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lxl.webtool.dao.pojo.TbBhImgquestion" >
+    update tb_bh_imgquestion
+    <set >
+      <if test="channelkey != null" >
+        channelkey = #{channelkey,jdbcType=VARCHAR},
+      </if>
+      <if test="guid != null" >
+        guid = #{guid,jdbcType=VARCHAR},
+      </if>
+      <if test="imgdata != null" >
+        imgdata = #{imgdata,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null" >
+        imgurl = #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="imganswer != null" >
+        imganswer = #{imganswer,jdbcType=VARCHAR},
+      </if>
+      <if test="imganswerstatus != null" >
+        imganswerstatus = #{imganswerstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="imgoperatestatus != null" >
+        imgoperatestatus = #{imgoperatestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="imgcreatedate != null" >
+        imgcreatedate = #{imgcreatedate,jdbcType=BIGINT},
+      </if>
+      <if test="imgupdatedate != null" >
+        imgupdatedate = #{imgupdatedate,jdbcType=BIGINT},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lxl.webtool.dao.pojo.TbBhImgquestion" >
+    update tb_bh_imgquestion
+    set channelkey = #{channelkey,jdbcType=VARCHAR},
+      guid = #{guid,jdbcType=VARCHAR},
+      imgdata = #{imgdata,jdbcType=VARCHAR},
+      imgurl = #{imgurl,jdbcType=VARCHAR},
+      imganswer = #{imganswer,jdbcType=VARCHAR},
+      imganswerstatus = #{imganswerstatus,jdbcType=VARCHAR},
+      imgoperatestatus = #{imgoperatestatus,jdbcType=VARCHAR},
+      imgcreatedate = #{imgcreatedate,jdbcType=BIGINT},
+      imgupdatedate = #{imgupdatedate,jdbcType=BIGINT},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

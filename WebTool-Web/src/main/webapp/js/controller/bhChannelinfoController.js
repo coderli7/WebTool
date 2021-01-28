@@ -154,8 +154,6 @@ app.controller('bhChannelinfoController', function ($scope, $controller, $q, bhC
         var pwd = prompt("请输入口令:", "")
         if (pwd != null && pwd != "") {
             if ('91bihu@admin' == pwd) {
-                // $("#demo").attr("style","display:none;");//隐藏div
-                // $("#demo").attr("style","display:block;");//显示div
                 $("#detailInfo").attr("style", "block")
             } else {
                 alert("口令错误!");
