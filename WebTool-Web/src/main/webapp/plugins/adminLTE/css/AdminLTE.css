@@ -5931,7 +5931,7 @@ table.text-center th {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 110px;
+    width: 210px;
     height: 77px;
     text-align: center;
     margin: -38.5px 0 0 -55px;
@@ -5945,7 +5945,7 @@ table.text-center th {
 
 .loading .loading-text {
     padding-top: 3px;
-    font-weight: bold;
+    /*font-weight: bold;*/
     color: #060303;
 }
 

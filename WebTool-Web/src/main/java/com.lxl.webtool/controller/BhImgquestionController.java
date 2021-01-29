@@ -141,6 +141,11 @@ public class BhImgquestionController {
      */
     @RequestMapping("/saveImgAnswer")
     BaseResult saveImgAnswer(String channelkey, String guid, String answser) {
+        // try {
+        //     Thread.sleep(3000);
+        // } catch (InterruptedException e) {
+        //     e.printStackTrace();
+        // }
         return bhImgquestionService.saveImgAnswer(channelkey, guid, answser);
     }
 

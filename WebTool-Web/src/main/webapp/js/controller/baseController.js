@@ -202,13 +202,21 @@ app
                 html += '<div class="loading-img">';
                 html += '<img class="img-responsive" src="../img/loading.gif" />';
                 html += '</div>';
-                html += '<div class="loading-text">';
+                html += '<div  class="loading-text" id="loadingdiv">';
                 html += '处理中...';
                 html += '</div>';
                 html += '</div>';
                 html += '</div>';
                 $('body').append(html);
             }
+
+            //更新loading弹窗提示信息
+            $scope.setLoadingDialogText = function (loadingtext) {
+                if (!$scope.isNullOrEmptyOrUndefined(loadingtext)) {
+                    document.querySelector("#loadingdiv").innerText = loadingtext;
+                }
+            }
+
 
             //移除loading窗口
             $scope.hideLoadingDialog = function () {
@@ -228,8 +236,12 @@ app
                 if (obj == ' ') {
                     return true;
                 }
-
             }
 
 
+            $scope.consolelog = function (logInfo) {
+                if (!$scope.isNullOrEmptyOrUndefined(logInfo)) {
+                    console.log(new Date().toLocaleString() + ":" + logInfo)
+                }
+            }
         });
