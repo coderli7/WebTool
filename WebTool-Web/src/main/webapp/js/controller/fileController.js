@@ -125,6 +125,7 @@ app.controller('fileController', function ($scope, $controller, bhVersionService
                 $scope.selectEntity[response.message].uptStatus = '上传成功!!!';
             });
         }
+        
     }
 
 

@@ -204,7 +204,7 @@
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="item  in  tools " repeat-finish="renderFinish()">
-                                    <td class="text-center">{{"NO"+$index+1}}</td>
+                                    <td class="text-center">{{$index+1}}</td>
                                     <td class="text-center">{{item.fileName}}</td>
                                     <td class="text-center">{{item.remark}}</td>
                                     <td class="text-center">{{item.size}}</td>
@@ -218,7 +218,7 @@
 
                                                              ng-click="copyTOClipBrd('NO'+$index+1)"
 
-                                                             data-clipboard-text={{baseDownLoadUrl+item.downLoadPath}}>复制下载地址</a>
+                                                             data-clipboard-text={{baseDownLoadUrl+item.fileName}}>复制下载地址</a>
                                     </td>
                                 </tr>
                                 </tbody>

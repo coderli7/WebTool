@@ -112,7 +112,7 @@ app.controller('searchController', function ($scope, $location, $controller, $ti
         var secUrl = window.location.pathname;
         secUrl = secUrl.substring(secUrl.indexOf("/") + 1);
         secUrl = secUrl.substring(0, secUrl.indexOf("/") + 1);
-        var thrdUrl = "admin/tools/";
+        var thrdUrl = "tools/";
         console.log(firUrl + secUrl + thrdUrl);
         //获取下载地址跟路径
         $scope.baseDownLoadUrl = firUrl + secUrl + thrdUrl;
