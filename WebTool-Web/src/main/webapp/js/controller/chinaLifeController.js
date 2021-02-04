@@ -104,6 +104,21 @@ app.controller('searchController', function ($scope, $location, $controller, $ti
         });
     }
 
+    //获取本地下载路径
+    $scope.baseDownLoadUrl = ""
+
+    $scope.setBaseDownToolsVal = function () {
+        var firUrl = window.location.origin + "/";
+        var secUrl = window.location.pathname;
+        secUrl = secUrl.substring(secUrl.indexOf("/") + 1);
+        secUrl = secUrl.substring(0, secUrl.indexOf("/") + 1);
+        var thrdUrl = "admin/tools/";
+        console.log(firUrl + secUrl + thrdUrl);
+        //获取下载地址跟路径
+        $scope.baseDownLoadUrl = firUrl + secUrl + thrdUrl;
+    }
+
+
     $scope.loadDt = function () {
         console.log("初始化加載dt")
         $('#example2').DataTable({
@@ -122,7 +137,7 @@ app.controller('searchController', function ($scope, $location, $controller, $ti
 
 //controller里对应的处理函数
     $scope.renderFinish = function () {
-        console.log('repeat渲染开始:' + new Date().getSeconds())
+        // console.log('repeat渲染开始:' + new Date().getSeconds())
         setTimeout(function () {
             $('#example2').DataTable({
                 "paging": false,
@@ -175,15 +190,24 @@ app.controller('searchController', function ($scope, $location, $controller, $ti
         }
     }
 
+    //拷贝到本地剪切板
+    $scope.copyTOClipBrd = function (id) {
+        console.log(id);
+        var btn = document.getElementById(id);
+        var clipbrd = new ClipboardJS(btn);
+        // clipbrd = new ClipboardJS(btn);
+        // alert("复制成功!!!");
+    }
+
 })
 
 
 app.directive('repeatFinish', function () {
     return {
         link: function (scope, element, attr) {
-            console.log(scope.$index)
+            // console.log(scope.$index)
             if (scope.$last == true) {
-                console.log('ng-repeat执行完毕')
+                // console.log('ng-repeat执行完毕')
                 scope.$eval(attr.repeatFinish)
             }
         }

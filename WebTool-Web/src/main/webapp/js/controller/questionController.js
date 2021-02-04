@@ -94,20 +94,26 @@ app.controller('questionController', function ($scope, $location, $interval, $co
                         searchingSign = false;
                         $scope.consolelog("有结果了" + response.data.imganswerstatus);
                         if (!$scope.isNullOrEmptyOrUndefined(response) && response.code == 0 && !$scope.isNullOrEmptyOrUndefined(response.data)) {
+                            //图片识别结果（是否正确）1 未识别 2 识别错误
+
                             if (response.data.imganswerstatus == 0) {
                                 $scope.hideLoadingDialog();
                                 hasResultOK = true;
                                 //保存成功,校验成功
-                                alert("提交成功!");
-                                $scope.consolelog("提交成功");
+                                alert("提交成功,请返回报价");
+                                $scope.consolelog("提交成功,请返回报价");
                             } else if (response.data.imganswerstatus == 1) {
+                                $scope.setLoadingDialogText("保存成功,后台验证中,请稍等...")
+                            } else if (response.data.imganswerstatus == 2) {
                                 $scope.hideLoadingDialog();
                                 hasResultOK = true;
+                                alert("验证码错误,不允许提交了!");
+                            } else if (response.data.imganswerstatus == 3) {
+                                $scope.hideLoadingDialog();
                                 //保存成功,校验失败,需要重新识别
                                 //清空保存数据，更新img src 并给出新的提示
                                 $("#qrImg").attr("src", response.data.imgdata)
-                                alert("验证码错误,请提交!");
-                                $scope.consolelog("验证码错误,请重新提交哦 ^_^");
+                                alert("验证码错误,请重新提交!");
                             } else {
                                 $scope.consolelog("不识别返回状态" + response.data.imganswerstatus);
                             }

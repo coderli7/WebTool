@@ -181,9 +181,7 @@ public class BhImgquestionServiceImpl implements BhImgquestionService {
                 baseResult.setCode(0);
                 TbBhImgquestion curImg = tbBhImgquestions.get(0);
                 curImg.setImganswer(answser);
-
                 update(curImg);
-
                 baseResult.setMessage("保存回复成功");
             } else {
                 baseResult.setMessage("保存回复异常,未查询到数据");

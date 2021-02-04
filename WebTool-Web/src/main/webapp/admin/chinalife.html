@@ -63,9 +63,12 @@
             src="../js/controller/chinaLifeController.js">
     </script>
 
+    <script type="text/javascript" src="../plugins/clipboard.js"></script>
+
+
 </head>
 <body class="hold-transition skin-red sidebar-mini" ng-app="pyg"
-      ng-controller="searchController" ng-init="getTools();">
+      ng-controller="searchController" ng-init="setBaseDownToolsVal();getTools();">
 
 <section class="content">
     <div class="row">
@@ -201,13 +204,22 @@
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="item  in  tools " repeat-finish="renderFinish()">
-                                    <td class="text-center">{{$index+1}}</td>
+                                    <td class="text-center">{{"NO"+$index+1}}</td>
                                     <td class="text-center">{{item.fileName}}</td>
                                     <td class="text-center">{{item.remark}}</td>
                                     <td class="text-center">{{item.size}}</td>
                                     <td class="text-center"><a
                                             href="../{{item.downLoadPath}}">下载</a>&nbsp;&nbsp;&nbsp;<a
-                                            href="#" ng-click="delTools(item.fileName)">删除</a></td>
+                                            href="#" ng-click="delTools(item.fileName)">删除</a>
+
+
+                                        &nbsp;&nbsp;&nbsp;<a id={{"NO"+$index+1}}
+                                                             href="#"
+
+                                                             ng-click="copyTOClipBrd('NO'+$index+1)"
+
+                                                             data-clipboard-text={{baseDownLoadUrl+item.downLoadPath}}>复制下载地址</a>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
