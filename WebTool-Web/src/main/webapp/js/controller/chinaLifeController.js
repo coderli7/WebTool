@@ -159,6 +159,13 @@ app.controller('searchController', function ($scope, $location, $controller, $ti
 
 
     //删除工具
+    $scope.downLoadTools = function (toolPath) {
+        console.log(toolPath);
+        window.open(toolPath);
+    }
+
+
+    //删除工具
     $scope.delTools = function (toolName) {
         //alert
         // alert("删除成功!");
