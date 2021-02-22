@@ -102,10 +102,6 @@
 
                                                 <a href="#" class="btn btn-primary btn-block"
                                                    ng-click="ChinalifeGetQRCode(searchEntity.wxId)"><b>查询动态验证码</b></a>
-
-                                                <!--   <button class="btn btn-default"
-                                                           ng-click="ChinalifeGetQRCode(searchEntity.wxId)">查询动态验证码
-                                                   </button>-->
                                             </div>
                                         </div>
                                     </div>
@@ -189,10 +185,12 @@
                     </div>
                     <div class="tab-pane " id="filemanager">
                         <div class="box-body">
-                            <a href="./fileUpload.html">去上传</a>
-                            &nbsp;&nbsp;
+
+
+                            <button type="button" class="btn btn-xs" data-toggle="modal"><a
+                                    href="./fileUpload.html" style="color: black">去上传</a>
+                            </button>
                             <table id="example2" class="table table-hover">
-                                <!--id="selectTable"-->
                                 <thead>
                                 <tr>
                                     <th class="text-center" style="width: 7%;">序号</th>
@@ -208,20 +206,14 @@
                                     <td class="text-center">{{item.fileName}}
                                     </td>
                                     <td class="text-center">{{item.remark}}</td>
-                                    <td class="text-center">{{item.size}}</td>
-
+                                    <td class="text-center" >{{item.size}}</td>
                                     <td class="text-center">
-
-
                                         <button type="button" class="btn btn-xs" data-toggle="modal"><a
                                                 href="../{{item.downLoadPath}}" style="color: black">下载</a>
                                         </button>
-
-
                                         <button type="button" class="btn btn-xs" data-toggle="modal"
                                                 ng-click="delTools(item.fileName)">删除
                                         </button>
-
                                         <button id={{"NO"+$index+1}} type="button" class="btn btn-xs"
                                                 data-toggle="modal"
                                                 ng-click="copyTOClipBrd('NO'+$index+1)"
@@ -238,7 +230,7 @@
 
                     <div class="tab-pane " id="other">
                         <div class="box-body">
-                            <a href="./channel.html">1.渠道信息</a>
+                            <a href="./channel.html">1. 渠道信息</a>
                             <br/>
                             <br/>
                         </div>

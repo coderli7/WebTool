@@ -93,17 +93,25 @@
 
                             <tbody>
                             <tr ng-repeat="item in selectEntity ">
-                                <td class="text-center">{{$index+1}}</td>
-                                <td class="text-center">{{item.name}}</td>
-                                <td class="text-center">{{item.dateTime}}</td>
-                                <td class="text-center">{{item.uptStatus}}</td>
-                                <td class="text-center"><select class="form-control" ng-model="item.versionType"
-                                                                ng-options="item.id as item.name for item in verionItemArr"></select>
+                                <td style="vertical-align: middle !important;text-align: center;">{{$index+1}}</td>
+                                <td style="vertical-align: middle !important;text-align: center;">
+                                    {{item.name}}
                                 </td>
-                                <td class="text-center"><input type="input" ng-model="item.versionNumber"
-                                                               class="form-control" placeholder="版本号">
+                                <td style="vertical-align: middle !important;text-align: center;">{{item.dateTime}}</td>
+                                <td style="vertical-align: middle !important;text-align: center;">{{item.uptStatus}}
                                 </td>
-                                <td><a href="javascript:void(0)" ng-click="delFile($index)"> 删除</a></td>
+                                <td style="vertical-align: middle !important;text-align: center;"><select
+                                        class="form-control" style=""
+                                        ng-model="item.versionType"
+                                        ng-options="item.id as item.name for item in verionItemArr"></select>
+                                </td>
+                                <td style="vertical-align: middle !important;text-align: center;"><input type="input"
+                                                                                                         ng-model="item.versionNumber"
+                                                                                                         class="form-control"
+                                                                                                         placeholder="版本号">
+                                </td>
+                                <td style="vertical-align: middle !important;text-align: center;"><a
+                                        href="javascript:void(0)" ng-click="delFile($index)"> 删除</a></td>
                             </tr>
                             </tbody>
                         </table>
