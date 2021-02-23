@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>测试页</title>
+    <title>测试页0000</title>
     <meta
             content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
             name="viewport">
@@ -35,187 +35,158 @@
     <script type="text/javascript" src="../js/controller/testController.js">
     </script>
 
-    <script type="text/javascript" src="../plugins/echarts/echarts.js">
+    <script type="text/javascript" src="../plugins/echarts/echarts.min.js">
 
     </script>
 
 </head>
-<body class="hold-transition skin-red sidebar-mini" ng-app="pyg"
+<body ng-app="pyg"
       ng-controller="testController">
+
+
+<!--class="hold-transition skin-red sidebar-mini"-->
 <!-- .box-body -->
 
 
-<div class="box-body">
+当前时间是：{{theTime}}
+当前时间是：{{theTime1}}
 
-
-    当前时间是：{{theTime}}
-    当前时间是：{{theTime1}}
-
-    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-    <div id="main" style="width: 800px;height:600px;"></div>
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main'));
-
-        // 指定图表的配置项和数据
-        var option = {
-            title: {
-                text: 'ECharts 入门示例'
-            },
-            tooltip: {},
-            legend: {
-                data: ['销量']
-            },
-            xAxis: {
-                data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
-            },
-            yAxis: {},
-            series: [{
-                name: '销量',
-                type: 'bar',
-                data: [5, 20, 36, 10, 10, 20]
-            }]
-        };
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-    </script>
-    <!-- 数据表格 -->
-    <!--<div class="table-box">
-
-        &lt;!&ndash;工具栏&ndash;&gt;
-        <div class="pull-left">
-            <div class="form-group form-inline">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default" title="新建"
-                            data-toggle="modal" data-target="#editModal"
-                            ng-click="entity={};entity.operateType='1';newOne()">
-                        <i class="fa fa-file-o"></i> 新建
-                    </button>
-                    <button type="button" class="btn btn-default" title="删除"
-                            ng-click="dele()">
-                        <i class="fa fa-trash-o"></i> 删除
-                    </button>
-                    <button type="button" class="btn btn-default" title="刷新"
-                            onclick="window.location.reload();">
-                        <i class="fa fa-refresh"></i> 刷新
-                    </button>
-                </div>
-            </div>
-        </div>
-        <div class="box-tools pull-right">
-            <div class="has-feedback"></div>
-        </div>
-        &lt;!&ndash;工具栏/&ndash;&gt;
-
-        &lt;!&ndash;数据列表&ndash;&gt;
-        <table id="dataList"
-               class="table table-bordered table-striped table-hover dataTable">
-            <thead>
-            <tr>
-                <th class="" style="padding-right: 0px"><input id="selall"
-                                                               type="checkbox" class="icheckbox_square-blue"></th>
-                <th class="text-center">用户名</th>
-                <th class="text-center text-muted">密码</th>
-                <th class="text-center">是否可用</th>
-                <th class="text-center">别名</th>
-                <th class="text-center">备注1</th>
-                <th class="text-center">备注2</th>
-                <th class="text-center">操作</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="entity in list">
-                <td><input type="checkbox"
-                           ng-click="updateSelection($event,entity.username)"></td>
-                <td class="text-center">{{entity.username}}</td>
-                <td class="text-center">******</td>
-                <td class="text-center">{{entity.enabled}}</td>
-                <td class="text-center">{{entity.usernamealias}}</td>
-                <td class="text-center">{{entity.info1}}</td>
-                <td class="text-center">{{entity.info2}}</td>
-                <td class="text-center">
-                    <button type="button" class="btn bg-olive btn-xs"
-                            data-toggle="modal" data-target="#editModal"
-                            ng-click="findOne(entity.username);entity.operateType='2'">修改
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        &lt;!&ndash;数据列表/&ndash;&gt;
-    </div>
-    &lt;!&ndash; 数据表格 /&ndash;&gt;
-    &lt;!&ndash; 分页 &ndash;&gt;
-    <tm-pagination conf="paginationConf"></tm-pagination>-->
-</div>
-<!-- /.box-body -->
-
-<!-- 编辑窗口 -->
-<!--
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-hidden="true">×
-                </button>
-                <h3 id="myModalLabel">编辑</h3>
-            </div>
-            <div class="modal-body">
-                <table class="table table-bordered table-striped" width="800px">
-                    <tr>
-                        <td>用户名:</td>
-                        <td><input id="username" class="form-control"
-                                   ng-model="entity.username" placeholder=""></td>
-
-                    </tr>
-                    <tr>
-
-                        <td>密码:</td>
-
-                        <td><input class="form-control" ng-model="entity.password"
-                                   placeholder="" type="password"></td>
-
-                    </tr>
-                    <tr>
-
-                        <td>别名:</td>
-
-                        <td><input class="form-control"
-                                   ng-model="entity.usernamealias" placeholder=""></td>
-
-                    </tr>
-                    <tr>
-
-                        <td>备注1:</td>
-
-                        <td><input class="form-control" ng-model="entity.info1"
-                                   placeholder=""></td>
-
-                    </tr>
-                    <tr>
-
-                        <td>备注2:</td>
-
-                        <td><input class="form-control" ng-model="entity.info2"
-                                   placeholder=""></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-success" data-dismiss="modal"
-                        aria-hidden="true" ng-click="save()">保存
-                </button>
-                <button class="btn btn-default" data-dismiss="modal"
-                        aria-hidden="true">关闭
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
--->
+<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div id="container" style="height:500px;width: 100%"></div>
 
 </body>
+
+
+<script type="text/javascript">
+    var dom = document.getElementById("container");
+    var myChart = echarts.init(dom);
+    var app = {};
+
+    var option;
+
+
+    option = {
+        title: {
+            text: '',
+            subtext: ''
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['最高气温', '最低气温']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                dataView: {readOnly: false},
+                magicType: {type: ['line', 'bar']},
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        },
+        yAxis: {
+            type: 'value',
+            axisLabel: {
+                formatter: '{value} °C'
+            }
+        },
+        series: [
+            {
+                name: '最高气温',
+                type: 'line',
+                data: [10, 11, 13, 11, 12, 12, 9],
+                markPoint: {
+                    data: [
+                        {type: 'max', name: '最大值'},
+                        {type: 'min', name: '最小值'}
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'}
+                    ]
+                }
+            },
+            {
+                name: '最低气温',
+                type: 'line',
+                data: [1, -2, 2, 5, 3, 2, 0],
+                markPoint: {
+                    data: [
+                        {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {type: 'average', name: '平均值'},
+                        [{
+                            symbol: 'none',
+                            x: '90%',
+                            yAxis: 'max'
+                        }, {
+                            symbol: 'circle',
+                            label: {
+                                position: 'start',
+                                formatter: '最大值'
+                            },
+                            type: 'max',
+                            name: '最高点'
+                        }]
+                    ]
+                }
+            }
+        ]
+    };
+
+
+    // option = {
+    //     xAxis: {
+    //         type: 'category',
+    //         data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    //     },
+    //     yAxis: {
+    //         type: 'value'
+    //     },
+    //     series: [{
+    //         data: [150, 230, 224, 218, 135, 147, 260],
+    //         type: 'line'
+    //     }]
+    // };
+
+
+    // var option = {
+    //     title: {
+    //         text: 'ECharts 入门示例'
+    //     },
+    //     tooltip: {},
+    //     legend: {
+    //         data: ['销量']
+    //     },
+    //     xAxis: {
+    //         data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+    //     },
+    //     yAxis: {},
+    //     series: [{
+    //         name: '销量',
+    //         type: 'bar',
+    //         data: [5, 20, 36, 10, 10, 20]
+    //     }]
+    // };
+
+
+    if (option && typeof option === 'object') {
+        myChart.setOption(option);
+
+    }
+
+</script>
 </html>
