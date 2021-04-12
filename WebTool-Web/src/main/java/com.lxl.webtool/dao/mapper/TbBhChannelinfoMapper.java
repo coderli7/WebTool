@@ -34,5 +34,4 @@ public interface TbBhChannelinfoMapper {
     int updateByPrimaryKey(TbBhChannelinfo record);
 
 
-
 }
