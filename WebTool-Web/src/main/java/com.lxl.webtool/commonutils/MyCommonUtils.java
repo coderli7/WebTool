@@ -254,4 +254,22 @@ public class MyCommonUtils {
         }
         return bigDecimal;
     }
+
+    /**
+     * 转化字符串
+     *
+     * @param strVal
+     * @return
+     */
+    public static Integer getIntegerVal(String strVal) {
+        if (!StringUtils.isNotBlank(strVal)) {
+            return 0;
+        } else {
+            try {
+                return Integer.valueOf(strVal);
+            } catch (NumberFormatException e) {
+                return 0;
+            }
+        }
+    }
 }

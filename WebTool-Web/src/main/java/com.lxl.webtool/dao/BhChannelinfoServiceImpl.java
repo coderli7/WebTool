@@ -3,7 +3,9 @@ package com.lxl.webtool.dao;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.lxl.webtool.commonutils.MyCommonUtils;
 import com.lxl.webtool.commonutils.MyDateUtils;
+import com.lxl.webtool.commonutils.MyRedisUtils;
 import com.lxl.webtool.dao.mapper.TbBhChannelinfoMapper;
 import com.lxl.webtool.dao.pojo.TbBhChannelinfo;
 import com.lxl.webtool.dao.pojo.TbBhChannelinfoExample;
@@ -16,6 +18,7 @@ import com.lxl.webtool.pojo.ChannelInfoResult;
 import com.lxl.webtool.pojo.PageResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,6 +37,9 @@ public class BhChannelinfoServiceImpl implements BhChannelinfoService {
 
     @Autowired
     private BhChannelinfoLatestService bhChannelinfoLatestService;
+
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
 
     /**
@@ -182,6 +188,13 @@ public class BhChannelinfoServiceImpl implements BhChannelinfoService {
     @Override
     public BaseResult getChannelCookie(String channelKey) {
         ChannelInfoResult baseResult = new ChannelInfoResult();
+        String redisVal = MyRedisUtils.getVal(channelKey);
+        int curErrorCount = MyCommonUtils.getIntegerVal(redisVal);
+        // if (curErrorCount > 20) {
+        //     baseResult.setCode(-10001);
+        //     baseResult.setMessage("当前获取次数已超限!不再查询!");
+        //     return baseResult;
+        // }
         try {
 
             /**
@@ -214,8 +227,12 @@ public class BhChannelinfoServiceImpl implements BhChannelinfoService {
                     // channelInfoDataResponse.setCookie(channelinfo.getLogininfo());
                     // channelInfoDataResponse.setProxyUrl(channelinfo.getProxyUrl());
                     // baseResult.setData(channelInfoDataResponse);
-                }
+                } else {
 
+                    //插入当前账号登录次数到redis库中，超过20次，则不再查询
+                    curErrorCount++;
+                    MyRedisUtils.insertVal(channelKey, String.valueOf(curErrorCount), 60 * 60 * 8);
+                }
             } else {
                 baseResult.setData(channelinfoLatest.getLogininfo());
                 baseResult.setProxyUrl(channelinfoLatest.getProxyUrl());

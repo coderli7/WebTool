@@ -23,8 +23,8 @@
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="defaultEncoding" value="UTF-8"></property>
-        <!-- 设定文件上传的最大值5MB，5*1024*1024(52428800)  100M  -->
-        <property name="maxUploadSize" value="104857600"></property>
+        <!-- 设定文件上传的最大值5MB，5*1024*1024(52428800)  100M 500M  -->
+        <property name="maxUploadSize" value="262144000"></property>
     </bean>
 
     <bean id="caseInsensitivePathMatcher" class="com.lxl.webtool.config.PathMatcher"/>
