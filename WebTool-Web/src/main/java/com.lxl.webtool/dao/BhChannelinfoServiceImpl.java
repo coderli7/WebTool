@@ -223,12 +223,7 @@ public class BhChannelinfoServiceImpl implements BhChannelinfoService {
                     TbBhChannelinfo channelinfo = channelinfos.get(channelinfos.size() - 1);
                     baseResult.setData(channelinfo.getLogininfo());
                     baseResult.setProxyUrl(channelinfo.getProxyUrl());
-                    // BHChannelInfoDataResponse channelInfoDataResponse = new BHChannelInfoDataResponse();
-                    // channelInfoDataResponse.setCookie(channelinfo.getLogininfo());
-                    // channelInfoDataResponse.setProxyUrl(channelinfo.getProxyUrl());
-                    // baseResult.setData(channelInfoDataResponse);
                 } else {
-
                     //插入当前账号登录次数到redis库中，超过20次，则不再查询
                     curErrorCount++;
                     MyRedisUtils.insertVal(channelKey, String.valueOf(curErrorCount), 60 * 60 * 8);

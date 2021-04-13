@@ -7,6 +7,8 @@ package com.lxl.webtool.commonutils;/**
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -33,6 +35,14 @@ public class MyRedisUtils {
      */
     @PostConstruct
     public void init() {
+
+        //不使用特殊字符
+        RedisSerializer stringSerializer = new StringRedisSerializer();
+        redisTemplateProxy.setKeySerializer(stringSerializer);
+        redisTemplateProxy.setValueSerializer(stringSerializer);
+        redisTemplateProxy.setHashKeySerializer(stringSerializer);
+        redisTemplateProxy.setHashValueSerializer(stringSerializer);
+
         MyRedisUtils.redisTemplate = this.redisTemplateProxy;
     }
 
