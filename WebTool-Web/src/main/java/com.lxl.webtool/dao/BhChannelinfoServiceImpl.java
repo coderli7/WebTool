@@ -198,36 +198,40 @@ public class BhChannelinfoServiceImpl implements BhChannelinfoService {
         try {
 
             /**
-             * 1.根据渠道列表，获取缓存，需要获取最新一条记录
+             * 1. 从latest表中查询记录
              */
             TbBhChannelinfoLatest channelinfoLatest = bhChannelinfoLatestService.GetInfoByChannelKey(channelKey);
 
             //为空，或者更新时间为空，或者更新时间小于今天零点，则均不操作此记录
             if (channelinfoLatest == null || channelinfoLatest.getUpdatedate() == null || channelinfoLatest.getUpdatedate() < MyDateUtils.getCurDayBeginTime()) {
+
+                baseResult.setCode(-1002);
+                baseResult.setMessage("latest未查询到信息");
+
                 //表中不存在
-                TbBhChannelinfoExample example = new TbBhChannelinfoExample();
-                TbBhChannelinfoExample.Criteria criteria = example.createCriteria();
-                if (StringUtils.isNotBlank(channelKey)) {
-                    criteria.andChannelkeyEqualTo(channelKey);
-                }
-
-                //接口只查询当天有效
-                Long curDayBeginTime = MyDateUtils.getCurDayBeginTime();
-                if (curDayBeginTime > 0) {
-                    criteria.andCreatedateGreaterThanOrEqualTo(curDayBeginTime.intValue());
-                }
-
-                example.setOrderByClause(" id  desc limit 1");
-                List<TbBhChannelinfo> channelinfos = bhChannelinfoMapper.selectByExample(example);
-                if (channelinfos.size() > 0) {
-                    TbBhChannelinfo channelinfo = channelinfos.get(channelinfos.size() - 1);
-                    baseResult.setData(channelinfo.getLogininfo());
-                    baseResult.setProxyUrl(channelinfo.getProxyUrl());
-                } else {
-                    //插入当前账号登录次数到redis库中，超过20次，则不再查询
-                    curErrorCount++;
-                    MyRedisUtils.insertVal(channelKey, String.valueOf(curErrorCount), 60 * 60 * 8);
-                }
+                // TbBhChannelinfoExample example = new TbBhChannelinfoExample();
+                // TbBhChannelinfoExample.Criteria criteria = example.createCriteria();
+                // if (StringUtils.isNotBlank(channelKey)) {
+                //     criteria.andChannelkeyEqualTo(channelKey);
+                // }
+                //
+                // //接口只查询当天有效
+                // Long curDayBeginTime = MyDateUtils.getCurDayBeginTime();
+                // if (curDayBeginTime > 0) {
+                //     criteria.andCreatedateGreaterThanOrEqualTo(curDayBeginTime.intValue());
+                // }
+                //
+                // example.setOrderByClause(" id  desc limit 1");
+                // List<TbBhChannelinfo> channelinfos = bhChannelinfoMapper.selectByExample(example);
+                // if (channelinfos.size() > 0) {
+                //     TbBhChannelinfo channelinfo = channelinfos.get(channelinfos.size() - 1);
+                //     baseResult.setData(channelinfo.getLogininfo());
+                //     baseResult.setProxyUrl(channelinfo.getProxyUrl());
+                // } else {
+                //     //插入当前账号登录次数到redis库中，超过20次，则不再查询
+                //     curErrorCount++;
+                //     MyRedisUtils.insertVal(channelKey, String.valueOf(curErrorCount), 60 * 60 * 8);
+                // }
             } else {
                 baseResult.setData(channelinfoLatest.getLogininfo());
                 baseResult.setProxyUrl(channelinfoLatest.getProxyUrl());
