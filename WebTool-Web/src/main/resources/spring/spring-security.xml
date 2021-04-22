@@ -41,7 +41,7 @@
 
     <http pattern="/puapi/**" security="none"></http>
     <http pattern="/test/**" security="none"></http>
-    <http pattern="/bhNote/**" security="none"></http>
+    <http pattern="/bhDbcache/**" security="none"></http>
 
 
     <!-- 页面的拦截规则 use-expressions:是否启动SPEL表达式 默认是true -->

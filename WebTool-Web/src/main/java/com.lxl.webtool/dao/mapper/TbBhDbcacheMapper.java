@@ -21,6 +21,8 @@ public interface TbBhDbcacheMapper {
 
     TbBhDbcache selectByPrimaryKey(Integer id);
 
+    List<TbBhDbcache> selectByKey(String dbkey);
+
     int updateByExampleSelective(@Param("record") TbBhDbcache record, @Param("example") TbBhDbcacheExample example);
 
     int updateByExample(@Param("record") TbBhDbcache record, @Param("example") TbBhDbcacheExample example);

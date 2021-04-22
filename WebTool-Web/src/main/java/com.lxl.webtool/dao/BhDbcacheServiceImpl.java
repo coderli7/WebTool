@@ -2,6 +2,7 @@ package com.lxl.webtool.dao;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.lxl.webtool.commonutils.MyDateUtils;
 import com.lxl.webtool.dao.mapper.TbBhDbcacheMapper;
 import com.lxl.webtool.dao.pojo.TbBhDbcache;
 import com.lxl.webtool.dao.pojo.TbBhDbcacheExample;
@@ -45,6 +46,7 @@ public class BhDbcacheServiceImpl implements BhDbcacheService {
      */
     @Override
     public void add(TbBhDbcache bhDbcache) {
+        bhDbcache.setCreatedate(MyDateUtils.getCurTimespan());
         bhDbcacheMapper.insert(bhDbcache);
     }
 
@@ -54,6 +56,7 @@ public class BhDbcacheServiceImpl implements BhDbcacheService {
      */
     @Override
     public void update(TbBhDbcache bhDbcache) {
+        bhDbcache.setUpdatedate(MyDateUtils.getCurTimespan());
         bhDbcacheMapper.updateByPrimaryKey(bhDbcache);
     }
 
@@ -98,6 +101,16 @@ public class BhDbcacheServiceImpl implements BhDbcacheService {
 
         Page<TbBhDbcache> page = (Page<TbBhDbcache>) bhDbcacheMapper.selectByExample(example);
         return new PageResult(page.getTotal(), page.getResult());
+    }
+
+    @Override
+    public TbBhDbcache searchByKey(String key) {
+
+        List<TbBhDbcache> tbBhDbcaches = bhDbcacheMapper.selectByKey(key);
+        if (tbBhDbcaches != null && tbBhDbcaches.size() > 0) {
+            return tbBhDbcaches.get(0);
+        }
+        return null;
     }
 
 }
