@@ -127,7 +127,8 @@ public class BhDbcacheController {
         try {
             TbBhDbcache tbBhDbcache = bhDbcacheService.searchByKey(key);
             if (tbBhDbcache != null) {
-                result.setData(tbBhDbcache);
+                result.setData(tbBhDbcache.getDbcontent());
+                result.setMessage("获取成功");
             } else {
                 result.setCode(-10002);
                 result.setMessage("未查询到相关数据");
