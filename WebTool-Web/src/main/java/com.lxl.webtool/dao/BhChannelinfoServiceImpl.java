@@ -173,10 +173,12 @@ public class BhChannelinfoServiceImpl implements BhChannelinfoService {
         }
 
         try {
-            bhChannelinfoMapper.insert(channelinfo);
-            //更新记录表
-            bhChannelinfoLatestService.AddOrUpdateRecord(channelinfo);
-            baseResult.setMessage("增加成功");
+            if (StringUtils.isNotBlank(channelinfo.getChannelkey())) {
+                bhChannelinfoMapper.insert(channelinfo);
+                //更新记录表
+                bhChannelinfoLatestService.AddOrUpdateRecord(channelinfo);
+                baseResult.setMessage("增加成功");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             baseResult.setCode(ResultEnum.Falied.getCode());
