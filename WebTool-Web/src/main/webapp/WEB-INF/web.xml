@@ -51,6 +51,7 @@
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
     <!-- api包装请求(存储数据，解决一次读取失效的问题) -->
     <filter>
         <filter-name>requestFilter</filter-name>
