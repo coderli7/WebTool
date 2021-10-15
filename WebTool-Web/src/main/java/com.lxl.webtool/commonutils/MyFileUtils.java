@@ -7,6 +7,7 @@ package com.lxl.webtool.commonutils;/**
 
 import com.lxl.webtool.log.LoggerEnum;
 import com.lxl.webtool.log.MyLoggerFactory;
+import com.lxl.webtool.utils.OSInfoUtil;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.stream.FileImageOutputStream;
@@ -37,8 +38,11 @@ public class MyFileUtils {
     public static void saveFileLocal(MultipartFile file, String filePath,
                                      String originalFilename) throws IOException, FileNotFoundException {
         try {
+
+            //区分linux和windows
+            filePath = filePath + (OSInfoUtil.isLinux() ? "/" : "\\");
             // 1.保存本地
-            String imgPath = String.format("%s\\%s", filePath,
+            String imgPath = String.format("%s%s", filePath,
                     originalFilename);
             byte[] byteImg = file.getBytes();
             FileImageOutputStream imageOutput = new FileImageOutputStream(

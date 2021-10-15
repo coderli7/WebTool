@@ -10,6 +10,7 @@ import com.lxl.webtool.model.fileinfo.FileInfo;
 import com.lxl.webtool.pojo.BaseResult;
 import com.lxl.webtool.pojo.PageResult;
 import com.lxl.webtool.pojo.Result;
+import com.lxl.webtool.utils.OSInfoUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -75,7 +76,7 @@ public class FileController {
             TbFile tbFile = new TbFile();
             tbFile.setFilename(originalFilename);
             tbFile.setUsercode("");
-            String orgPath = String.format("%s\\%s", filePath, originalFilename);
+            String orgPath = String.format("%s%s", (filePath + (OSInfoUtil.isLinux() ? "/" : "\\")), originalFilename);
             tbFile.setFilepath(orgPath);
             tbFile.setRemark1(versionType);
             tbFile.setRemark2(versionNumber);
